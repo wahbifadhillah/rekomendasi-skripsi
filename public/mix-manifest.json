@@ -1,0 +1,8 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/chart.js/chart.js": "/chart.js/chart.js",
+    "/viz.js/viz.js": "/viz.js/viz.js",
+    "/viz.js/full.render.js": "/viz.js/full.render.js",
+    "/interactjs/interact.min.js": "/interactjs/interact.min.js"
+}
