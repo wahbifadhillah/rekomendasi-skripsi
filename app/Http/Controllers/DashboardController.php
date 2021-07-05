@@ -18,10 +18,10 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('role:1,2');
+    }
     
     private function getLamaPengerjaan($date_proposal, $date_semhas){
         $proposal = new DateTime($date_proposal);

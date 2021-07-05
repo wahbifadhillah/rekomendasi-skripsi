@@ -38,7 +38,11 @@
                         <canvas id="dashboard_datasets_bidang_rekomendasi"></canvas>
                         <p class="text-center text-muted">Bidang Skripsi</p>
                     @else
-                        <small>Aplikasikan <a href="{{route('admin.dataset.index')}}">model pada dataset</a> terlebih dahulu untuk melihat chart.</small>
+                        @if(auth()->user()->role == 1)
+                            <small>Aplikasikan <a href="{{route('admin.dataset.index')}}">model pada dataset</a> terlebih dahulu untuk melihat chart.</small>
+                        @else
+                            <small>Model belum diaplikasikan pada dataset oleh admin.</small>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -51,20 +55,28 @@
                         <canvas id="dashboard_datasets_bidang_rekomendasi_waktu"></canvas>
                         <p class="text-center text-muted">Lama pengerjaan (bulan)</p>
                     @else
-                        <small>Aplikasikan <a href="{{route('admin.dataset.index')}}">model pada dataset</a> terlebih dahulu untuk melihat chart.</small>
+                        @if(auth()->user()->role == 1)
+                            <small>Aplikasikan <a href="{{route('admin.dataset.index')}}">model pada dataset</a> terlebih dahulu untuk melihat chart.</small>
+                        @else
+                            <small>Model belum diaplikasikan pada dataset oleh admin.</small>
+                        @endif
                     @endif
                 </div>
             </div>
         </div>
         <div class="col-2">
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-12">
                     <div class="boxed">
                         <h5>Akurasi model pohon keputusan aktif</h5>
                         @if ($tree_accuracy)
                             <h2>{{$tree_accuracy}} %</h2>
                         @else
-                            <small>Model tidak ditemukan, latih dan buat <a href="{{route('admin.training.index')}}">model pohon keputusan</a> terlebih dahulu.</small>
+                            @if(auth()->user()->role == 1)
+                                <small>Model tidak ditemukan, latih dan buat <a href="{{route('admin.training.index')}}">model pohon keputusan</a> terlebih dahulu.</small>
+                            @else
+                                <small>Model belum dilatih oleh admin.</small>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -233,7 +245,11 @@
             @if ($datasets)
                 <small>Menampilkan {{$datasets->firstItem()}} hingga {{$datasets->perPage()*$datasets->currentPage()}} dari {{$datasets->total()}} data</small>
             @else
-                <small>Data tidak ditemukan, input <a href="{{route('admin.dataset.create')}}">dataset</a> terlebih dahulu.</small>
+                @if(auth()->user()->role == 1)
+                    <small>Data tidak ditemukan, input <a href="{{route('admin.dataset.create')}}">dataset</a> terlebih dahulu.</small>
+                @else
+                    <small>Data belum dimasukkan oleh admin.</small>
+                @endif
             @endif
         </div>
             @if ($datasets)

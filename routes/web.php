@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware('kaprodi')->prefix('admin')->name('admin.')->group(function(){
+Route::prefix('admin')->name('admin.')->group(function(){
     Route::get('dashboard/chart', 'DashboardController@getChartBidangXRekomendasi')->name('dashboard.chart');
     Route::resource('dashboard', DashboardController::class);
     Route::get('dataset/splitdata', 'DatasetController@splitData')->name('dataset.splitdata');
@@ -35,6 +35,15 @@ Route::middleware('kaprodi')->prefix('admin')->name('admin.')->group(function(){
     Route::get('recommendation/createbytree/{id}', 'RecommendationController@createBYtree')->name('recommendation.createbytree');
     Route::resource('recommendation', RecommendationController::class);
     Route::resource('configuration', ConfigurationController::class);
+});
+
+Route::prefix('kjfd')->name('kjfd.')->group(function(){
+    Route::get('dashboard/chart', 'DashboardController@getChartBidangXRekomendasi')->name('dashboard.chart');
+    Route::resource('dashboard', DashboardController::class);
+    Route::get('decisiontree/usemodel', 'DecisionTreeController@useModel')->name('decisiontree.usemodel');
+    Route::resource('decisiontree', DecisionTreeController::class);
+    Route::get('recommendation/createbytree/{id}', 'RecommendationController@createBYtree')->name('recommendation.createbytree');
+    Route::resource('recommendation', RecommendationController::class);
 });
 
 

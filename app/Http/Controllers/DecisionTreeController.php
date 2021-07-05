@@ -102,8 +102,9 @@ class DecisionTreeController extends Controller
      */
     public function show($id)
     {
-        $tree = DecisionTree::where('tree_id', $id)->first();
-        return view('pages.decisiontree.show', compact('tree'));
+        $selected_tree = DecisionTree::where('tree_id', $id)->first();
+        // $selected_tree = NULL;
+        return view('pages.decisiontree.show', compact(['selected_tree']));
     }
 
     /**

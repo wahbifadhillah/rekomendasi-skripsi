@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'kaprodi' => \App\Http\Middleware\Kaprodi::class,
         'kjfd' => \App\Http\Middleware\KJFD::class,
+        'role' => \App\Http\Middleware\CheckRole::class,
     ];
 }

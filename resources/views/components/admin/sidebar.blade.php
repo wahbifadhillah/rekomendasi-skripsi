@@ -3,7 +3,7 @@
 </div>
 <ul id="nav">
     <li>
-        <a href="{{ route('admin.dashboard.index')}}" class="nav-btn {{(request()->is('admin/dashboard')) ? 'active' : ''}}">
+        <a href="{{ route('admin.dashboard.index')}}" class="nav-btn {{(\Request::is('*/dashboard')) ? 'active' : ''}}">
             <div class="nav-icon">
                 <i class="fas fa-tachometer-alt"></i>
             </div>
@@ -23,23 +23,23 @@
         </a>
         {{-- active with class show --}}
         {{-- <ul class="collapse {{(request()->is('admin/dataset')) ? 'active' : ''}} {{(request()->is('admin/training')) ? 'active' : ''}} {{(request()->is('admin/testing')) ? 'active' : ''}}" id="sub_data" data-parent="#nav"> --}}
-        <ul class="collapse {{(request()->is('admin/dataset')) ? 'show' : ''}} {{(request()->is('admin/dataset/create')) ? 'show' : ''}} {{(request()->is('admin/training')) ? 'show' : ''}} {{(request()->is('admin/testing')) ? 'show' : ''}}" id="sub_data" data-parent="#nav">
+        <ul class="collapse {{(\Request::is('*/dataset')) ? 'show' : ''}} {{(\Request::is('*/dataset/create')) ? 'show' : ''}} {{(\Request::is('*/training')) ? 'show' : ''}} {{(\Request::is('*/testing')) ? 'show' : ''}}" id="sub_data" data-parent="#nav">
             <li>
-                <a href="{{ route('admin.dataset.index')}}" class="sub-nav-btn {{(request()->is('admin/dataset')) ? 'active' : ''}}{{(request()->is('admin/dataset/create')) ? 'active' : ''}}">
+                <a href="{{ route('admin.dataset.index')}}" class="sub-nav-btn {{(\Request::is('*/dataset')) ? 'active' : ''}}{{(\Request::is('*/dataset/create')) ? 'active' : ''}}">
                     <div class="nav-link">
                         Dataset
                     </div>      
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.training.index')}}" class="sub-nav-btn {{(request()->is('admin/training')) ? 'active' : ''}}">
+                <a href="{{ route('admin.training.index')}}" class="sub-nav-btn {{(\Request::is('*/training')) ? 'active' : ''}}">
                     <div class="nav-link">
                         Data latih
                     </div>      
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.testing.index')}}" class="sub-nav-btn {{(request()->is('admin/testing')) ? 'active' : ''}}">
+                <a href="{{ route('admin.testing.index')}}" class="sub-nav-btn {{(\Request::is('*/testing')) ? 'active' : ''}}">
                     <div class="nav-link">
                         Data uji
                     </div>      
@@ -48,7 +48,7 @@
         </ul>
     </li>
     <li>
-        <a href="{{ route('admin.decisiontree.index')}}" class="nav-btn {{(request()->is('admin/decisiontree')) ? 'active' : ''}} {{(request()->is('admin/decisiontree/'.last(request()->segments())            )) ? 'active' : ''}}">
+        <a href="{{ route('admin.decisiontree.index')}}" class="nav-btn {{(\Request::is('*/decisiontree')) ? 'active' : ''}} {{(\Request::is('*/decisiontree/*')) ? 'active' : ''}}">
             <div class="nav-icon">
                 <i class="fas fa-sitemap"></i>
             </div>
@@ -58,7 +58,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('admin.recommendation.create')}}" class="nav-btn {{(request()->is('admin/recommendation/create')) ? 'active' : ''}} {{(request()->is('admin/recommendation')) ? 'active' : ''}}">
+        <a href="{{ route('admin.recommendation.create')}}" class="nav-btn {{(\Request::is('*/recommendation/create')) ? 'active' : ''}} {{(\Request::is('*/recommendation')) ? 'active' : ''}} {{(\Request::is('*/recommendation/*')) ? 'active' : ''}}">
             <div class="nav-icon">
                 <i class="fas fa-thumbs-up"></i>
             </div>
@@ -68,7 +68,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('admin.configuration.index')}}" class="nav-btn {{(request()->is('admin/configuration')) ? 'active' : ''}}">
+        <a href="{{ route('admin.configuration.index')}}" class="nav-btn {{(\Request::is('*/configuration')) ? 'active' : ''}}">
             <div class="nav-icon">
                 <i class="fas fa-cog"></i>
             </div>
