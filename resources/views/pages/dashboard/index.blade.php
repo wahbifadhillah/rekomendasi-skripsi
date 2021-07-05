@@ -38,7 +38,7 @@
                         <canvas id="dashboard_datasets_bidang_rekomendasi"></canvas>
                         <p class="text-center text-muted">Bidang Skripsi</p>
                     @else
-                        @if(auth()->user()->role == 1)
+                        @if(auth()->user()->role == 'kaprodi')
                             <small>Aplikasikan <a href="{{route('admin.dataset.index')}}">model pada dataset</a> terlebih dahulu untuk melihat chart.</small>
                         @else
                             <small>Model belum diaplikasikan pada dataset oleh admin.</small>
@@ -55,7 +55,7 @@
                         <canvas id="dashboard_datasets_bidang_rekomendasi_waktu"></canvas>
                         <p class="text-center text-muted">Lama pengerjaan (bulan)</p>
                     @else
-                        @if(auth()->user()->role == 1)
+                        @if(auth()->user()->role == 'kaprodi')
                             <small>Aplikasikan <a href="{{route('admin.dataset.index')}}">model pada dataset</a> terlebih dahulu untuk melihat chart.</small>
                         @else
                             <small>Model belum diaplikasikan pada dataset oleh admin.</small>
@@ -72,7 +72,7 @@
                         @if ($tree_accuracy)
                             <h2>{{$tree_accuracy}} %</h2>
                         @else
-                            @if(auth()->user()->role == 1)
+                            @if(auth()->user()->role == 'kaprodi')
                                 <small>Model tidak ditemukan, latih dan buat <a href="{{route('admin.training.index')}}">model pohon keputusan</a> terlebih dahulu.</small>
                             @else
                                 <small>Model belum dilatih oleh admin.</small>
@@ -245,7 +245,7 @@
             @if ($datasets)
                 <small>Menampilkan {{$datasets->firstItem()}} hingga {{$datasets->perPage()*$datasets->currentPage()}} dari {{$datasets->total()}} data</small>
             @else
-                @if(auth()->user()->role == 1)
+                @if(auth()->user()->role == 'kaprodi')
                     <small>Data tidak ditemukan, input <a href="{{route('admin.dataset.create')}}">dataset</a> terlebih dahulu.</small>
                 @else
                     <small>Data belum dimasukkan oleh admin.</small>

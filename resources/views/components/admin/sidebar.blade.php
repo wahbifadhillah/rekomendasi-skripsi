@@ -3,7 +3,7 @@
     <small>{{Auth::user()->field}}</small>
 </div>
 @php($route_prefix = NULL)
-@if (auth()->user()->role == 1)
+@if (auth()->user()->role == 'kaprodi')
     @php($route_prefix = 'admin')
 @else
     @php($route_prefix = 'kjfd')
@@ -19,7 +19,7 @@
             </div>
         </a>
     </li>
-    @if (auth()->user()->role == 1)
+    @if (auth()->user()->role == 'kaprodi')
     <li>
         <a href="#sub_data" data-toggle="collapse" data-target="#sub_data" aria-expanded="false" class="nav-btn">
             <div class="nav-icon">
@@ -76,7 +76,7 @@
             </div>
         </a>
     </li>
-    @if (auth()->user()->role == 1)
+    @if (auth()->user()->role == 'kaprodi')
     <li>
         <a href="{{ route('admin.configuration.index')}}" class="nav-btn {{(\Request::is('*/configuration')) ? 'active' : ''}}">
             <div class="nav-icon">

@@ -2,7 +2,7 @@
 @section('recommendation')
     @parent
     @php($route_prefix = NULL)
-    @if (auth()->user()->role == 1)
+    @if (auth()->user()->role == 'kaprodi')
         @php($route_prefix = 'admin')
     @else
         @php($route_prefix = 'kjfd')
@@ -196,7 +196,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="boxed">
-                    @if(auth()->user()->role == 1)
+                    @if(auth()->user()->role == 'kaprodi')
                         Model pohon keputusan tidak ditemukan, latih dan buat <a href="{{route($route_prefix.'.training.index')}}">model pohon keputusan</a> terlebih dahulu.
                     @else
                         Model pohon keputusan belum dilatih oleh admin.

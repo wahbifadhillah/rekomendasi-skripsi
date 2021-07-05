@@ -14,10 +14,10 @@ class RecommendationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('kjfd');
-    // }
+    public function __construct()
+    {
+        $this->middleware('role:kaprodi,kjfd');
+    }
     
     public function index()
     {

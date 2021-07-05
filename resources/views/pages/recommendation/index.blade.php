@@ -134,7 +134,7 @@
             @if ($recommendations)
                 <small>Menampilkan {{$recommendations->firstItem()}} hingga {{$recommendations->perPage()*$recommendations->currentPage()}} dari {{$recommendations->total()}} data</small>
             @else
-                @if(auth()->user()->role == 1)
+                @if(auth()->user()->role == 'kaprodi')
                     <small>Data tidak ditemukan, dapatkan <a href="{{route('admin.recommendation.create')}}">rekomendasi</a> bidang skripsi.</small>
                 @else
                     <small>Model pohon keputusan belum dilatih oleh admin.</small>

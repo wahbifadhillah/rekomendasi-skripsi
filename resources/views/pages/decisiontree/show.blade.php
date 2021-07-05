@@ -2,7 +2,7 @@
 @section('decisiontree')
     @parent
     @php($route_prefix = NULL)
-    @if (auth()->user()->role == 1)
+    @if (auth()->user()->role == 'kaprodi')
         @php($route_prefix = 'admin')
     @else
         @php($route_prefix = 'kjfd')

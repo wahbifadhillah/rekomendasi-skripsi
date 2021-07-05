@@ -20,7 +20,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('role:1,2');
+        $this->middleware('role:kaprodi,kjfd');
     }
     
     private function getLamaPengerjaan($date_proposal, $date_semhas){

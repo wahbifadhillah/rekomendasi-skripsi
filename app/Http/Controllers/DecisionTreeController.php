@@ -15,10 +15,10 @@ class DecisionTreeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('role:kaprodi,kjfd');
+    }
     
     private $mk_list = array('mk_PGI', 'mk_SIGD1', 'mk_SIGD2', 
     'mk_SIGL', 'mk_SPK', 'mk_ABD', 'mk_BDT', 'mk_DBD', 'mk_DM', 'mk_DW', 'mk_KB', 'mk_PBD', 

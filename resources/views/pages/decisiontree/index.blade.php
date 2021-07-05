@@ -2,7 +2,7 @@
 @section('decisiontree')
     @parent
     @php($route_prefix = NULL)
-    @if (auth()->user()->role == 1)
+    @if (auth()->user()->role == 'kaprodi')
         @php($route_prefix = 'admin')
     @else
         @php($route_prefix = 'kjfd')
@@ -129,7 +129,7 @@
                     @elseif ($selected_tree)
                         <small>Data model pohon keputusan terbaru sedang ditampilkan..</small>
                     @elseif (!$trees)
-                        @if(auth()->user()->role == 1)
+                        @if(auth()->user()->role == 'kaprodi')
                             <small>Data tidak ditemukan, latih dan buat <a href="{{route($route_prefix.'.training.index')}}">model pohon keputusan</a> terlebih dahulu.</small>
                         @else
                             <small>Model pohon keputusan belum dilatih oleh admin.</small>

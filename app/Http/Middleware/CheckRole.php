@@ -1,21 +1,24 @@
 <?php
 
 namespace App\Http\Middleware;
-
 use Closure;
 
 
 class CheckRole
 {
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, ...$roles)
     {
-        $roles = [1,2]; // get array of your roles.
+        if (!auth()->check()){
+            return redirect('login');
+        }
 
-        // $request->user()->role IS AN EXAMPlE
-        if(!in_array($request->user()->role, $roles)){
+        // $user = auth()->user();
+        // dd($request->user()->role);
+        // dd($roles);
+        if (!in_array($request->user()->role, $roles)){
             return redirect('home')->with('error',"Only admin can access!");
         }
-        // dd(in_array($request->user()->role, $roles);
+        
         return $next($request);
     }
 }

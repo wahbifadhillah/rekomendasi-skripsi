@@ -17090,6 +17090,19 @@ body {
   overflow-x: hidden;
 }
 
+body#login {
+  height: 100vh;
+}
+
+body#login #login-box {
+  padding-top: 20vh;
+}
+
+body#login #login-box #login-card {
+  border-radius: 2em;
+  padding: 1.5em 1em 1em 1em;
+}
+
 nav#sidebar {
   padding: 1em 2em;
 }
@@ -17181,6 +17194,7 @@ section#content {
   background: white;
   border-radius: 3em;
   border: 1px solid #f5f5f5;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
 section .boxed {
