@@ -14,13 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $dir_base_path = base_path().'/';
-    $dir_base_path = str_replace('\\', '/', $dir_base_path);
-    $dir_weka_class_path = $dir_base_path.'dependency/weka.jar';
-    return $dir_weka_class_path;
+    return redirect('/login');
 });
 
-Route::prefix('admin')->name('admin.')->group(function(){
+Auth::routes();
+
+Route::middleware('kaprodi')->prefix('admin')->name('admin.')->group(function(){
     Route::get('dashboard/chart', 'DashboardController@getChartBidangXRekomendasi')->name('dashboard.chart');
     Route::resource('dashboard', DashboardController::class);
     Route::get('dataset/splitdata', 'DatasetController@splitData')->name('dataset.splitdata');
@@ -37,6 +36,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
     Route::resource('recommendation', RecommendationController::class);
     Route::resource('configuration', ConfigurationController::class);
 });
-Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('admin/home', 'HomeController@handleAdmin')->name('admin.route')->middleware('admin');
+// Route::get('/home', 'HomeController@index')->name('home');
