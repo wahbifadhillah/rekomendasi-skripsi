@@ -9,32 +9,32 @@
 @section('content_body')
     @parent
     @yield('filters')
+    @php($route_prefix = NULL)
+    @if (auth()->user()->role == 1)
+        @php($route_prefix = 'admin')
+    @else
+        @php($route_prefix = 'kjfd')
+    @endif
     <div class="row">
         <div class="col-12">
             <ul class="nav nav-tabs mb-3">
                 <li class="nav-item">
-                    <a class="nav-link {{(request()->is('admin/recommendation/create') ? 'active disabled' : '')}} {{(request()->is('admin/recommendation/createbytree/'.last(request()->segments())) ? 'active disabled' : '')}}" href="{{ route('admin.recommendation.create')}}">Dapatkan rekomendasi</a>
+                    <a class="nav-link {{(\Request::is('*/recommendation/create') ? 'active disabled' : '')}} {{(\Request::is('*/recommendation/createbytree/'.last(request()->segments())) ? 'active disabled' : '')}}" href="{{ route($route_prefix.'.recommendation.create')}}">Dapatkan rekomendasi</a>
                 </li>
-                @if (request()->is('admin/recommendation/createbytree/'.last(request()->segments())))
-                    @php
-                        $rec_id = 0;
-                    @endphp
+                @if (\Request::is('*/recommendation/createbytree/'.last(request()->segments())))
+                    @php($rec_id = 0)
                 @else    
                     @if (is_numeric(last(request()->segments())))
-                        @php
-                            $rec_id = $recommendation->id;    
-                        @endphp
+                        @php($rec_id = $recommendation->id)
                     @else
-                        @php
-                            $rec_id = 0;
-                        @endphp
+                        @php($rec_id = 0)
                     @endif
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link {{(request()->is('admin/recommendation/'.$rec_id) ? 'active disabled' : 'disabled')}}">Hasil rekomendasi</a>
+                    <a class="nav-link {{(\Request::is('*/recommendation/'.$rec_id) ? 'active disabled' : 'disabled')}}">Hasil rekomendasi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{(request()->is('admin/recommendation') ? 'active disabled' : '')}}" href="{{ route('admin.recommendation.index')}}">Sejarah rekomendasi</a>
+                    <a class="nav-link {{(\Request::is('*/recommendation') ? 'active disabled' : '')}}" href="{{ route($route_prefix.'.recommendation.index')}}">Sejarah rekomendasi</a>
                 </li>
             </ul>
         </div>

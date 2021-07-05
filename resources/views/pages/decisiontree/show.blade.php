@@ -1,8 +1,14 @@
 @extends('pages.decisiontree.master')
 @section('decisiontree')
     @parent
+    @php($route_prefix = NULL)
+    @if (auth()->user()->role == 1)
+        @php($route_prefix = 'admin')
+    @else
+        @php($route_prefix = 'kjfd')
+    @endif
     <div class="d-flex justify-content-end mb-3">
-        <a href="{{route('admin.recommendation.createbytree', $selected_tree->tree_id)}}" class="btn btn-primary">
+        <a href="{{route($route_prefix.'.recommendation.createbytree', $selected_tree->tree_id)}}" class="btn btn-primary">
             Gunakan model untuk mendapatkan rekomendasi
         </a>
     </div>

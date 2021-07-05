@@ -1,9 +1,15 @@
 @extends('pages.decisiontree.master')
 @section('decisiontree')
     @parent
+    @php($route_prefix = NULL)
+    @if (auth()->user()->role == 1)
+        @php($route_prefix = 'admin')
+    @else
+        @php($route_prefix = 'kjfd')
+    @endif
     @if ($selected_tree)
         <div class="d-flex justify-content-end mb-3">
-            <a href="{{route('admin.recommendation.createbytree', $selected_tree->tree_id)}}" class="btn btn-primary">
+            <a href="{{route($route_prefix.'.recommendation.createbytree', $selected_tree->tree_id)}}" class="btn btn-primary">
                 Gunakan model untuk mendapatkan rekomendasi
             </a>
         </div>
@@ -37,80 +43,6 @@
                                 <th scope="row" class="pr-1">Akurasi</th>
                                 <td colspan="2" scope="row" class="px-1">{{number_format($selected_tree->tree_accuracy *100, 2)}} %</td>
                             </tr>
-                            {{-- <tr>
-                                <th rowspan="6" scope="row" class="pr-1"><i>Precision</i></th>
-                                <tr>
-                                    <th class="px-1">Kelas</th>
-                                    <th class="px-1">%</th>
-                                </tr>
-                                @php
-                                    $precision = unserialize($selected_tree->tree_precision);
-                                @endphp
-                                @foreach ($precision as $p => $value)
-                                <tr>
-                                    <td class="px-1">
-                                        @switch($p)
-                                            @case('Tata Kelola & Manajemen Sistem Informasi')
-                                                TKMSI
-                                                @break
-                
-                                            @case('Pengembangan Sistem Informasi')
-                                                PSI
-                                                @break
-                
-                                            @case('Manajemen Data & Informasi')
-                                                MDI
-                                                @break
-                
-                                            @case('Sistem Informasi Geografis')
-                                                SIG
-                                                @break
-                
-                                            @default
-                                                Not defined
-                                        @endswitch
-                                    </td>
-                                    <td class="px-1">{{number_format($precision[$p]*100, 2)}} %</td>
-                                </tr>
-                                @endforeach
-                            </tr>
-                            <tr>
-                                <th rowspan="6" scope="row" class="pr-1"><i>Recall</i></th>
-                                <tr>
-                                    <th class="px-1">Kelas</th>
-                                    <th class="px-1">%</th>
-                                </tr>
-                                @php
-                                    $recall = unserialize($selected_tree->tree_recall);
-                                @endphp
-                                @foreach ($recall as $r => $value)
-                                <tr>
-                                    <td class="px-1">
-                                        @switch($r)
-                                            @case('Tata Kelola & Manajemen Sistem Informasi')
-                                                TKMSI
-                                                @break
-                
-                                            @case('Pengembangan Sistem Informasi')
-                                                PSI
-                                                @break
-                
-                                            @case('Manajemen Data & Informasi')
-                                                MDI
-                                                @break
-                
-                                            @case('Sistem Informasi Geografis')
-                                                SIG
-                                                @break
-                
-                                            @default
-                                                Not defined
-                                        @endswitch
-                                    </td>
-                                    <td class="px-1">{{number_format($recall[$r]*100, 2)}} %</td>
-                                </tr>
-                                @endforeach
-                            </tr> --}}
                             <tr>
                                 <th scope="row" class="pr-1">Ukuran Pohon</th>
                                 <td colspan="2" scope="row" class="px-1">{{$selected_tree->tree_size}}</td>
@@ -171,7 +103,7 @@
                                 </td>
                                 <td class="pl-4 pr-3 table-separator">
                                     {{-- View tree --}}
-                                    <a href="{{route('admin.decisiontree.show', $tree->tree_id)}}">
+                                    <a href="{{route($route_prefix.'.decisiontree.show', $tree->tree_id)}}">
                                         {{$tree->tree_name}}
                                     </a>
                                 </td>

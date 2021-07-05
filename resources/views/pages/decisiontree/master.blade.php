@@ -8,14 +8,20 @@
 @endsection
 @section('content_body')
     @parent
+    @php($route_prefix = NULL)
+    @if (auth()->user()->role == 1)
+        @php($route_prefix = 'admin')
+    @else
+        @php($route_prefix = 'kjfd')
+    @endif
     <div class="row">
         <div class="col-12">
             <ul class="nav nav-tabs mb-3">
                 <li class="nav-item">
-                    <a class="nav-link {{(request()->is('admin/decisiontree') ? 'active disabled' : '')}}" href="{{ route('admin.decisiontree.index')}}">Model Aktif</a>
+                    <a class="nav-link {{(\Request::is('*/decisiontree') ? 'active disabled' : '')}}" href="{{ route($route_prefix.'.decisiontree.index')}}">Model Aktif</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{(request()->is('admin/decisiontree/'.last(request()->segments())) ? 'active disabled' : 'disabled')}}">Lihat Model</a>
+                    <a class="nav-link {{(\Request::is('*/decisiontree/*') ? 'active disabled' : 'disabled')}}">Lihat Model</a>
                 </li>
             </ul>
         </div>

@@ -1,9 +1,15 @@
 <div class="brand">
     {{$brand}}
 </div>
+@php($route_prefix = NULL)
+@if (auth()->user()->role == 1)
+    @php($route_prefix = 'admin')
+@else
+    @php($route_prefix = 'kjfd')
+@endif
 <ul id="nav">
     <li>
-        <a href="{{ route('admin.dashboard.index')}}" class="nav-btn {{(\Request::is('*/dashboard')) ? 'active' : ''}}">
+        <a href="{{ route($route_prefix.'.dashboard.index')}}" class="nav-btn {{(\Request::is('*/dashboard')) ? 'active' : ''}}">
             <div class="nav-icon">
                 <i class="fas fa-tachometer-alt"></i>
             </div>
@@ -12,6 +18,7 @@
             </div>
         </a>
     </li>
+    @if (auth()->user()->role == 1)
     <li>
         <a href="#sub_data" data-toggle="collapse" data-target="#sub_data" aria-expanded="false" class="nav-btn">
             <div class="nav-icon">
@@ -47,8 +54,9 @@
             </li>
         </ul>
     </li>
+    @endif
     <li>
-        <a href="{{ route('admin.decisiontree.index')}}" class="nav-btn {{(\Request::is('*/decisiontree')) ? 'active' : ''}} {{(\Request::is('*/decisiontree/*')) ? 'active' : ''}}">
+        <a href="{{ route($route_prefix.'.decisiontree.index')}}" class="nav-btn {{(\Request::is('*/decisiontree')) ? 'active' : ''}} {{(\Request::is('*/decisiontree/*')) ? 'active' : ''}}">
             <div class="nav-icon">
                 <i class="fas fa-sitemap"></i>
             </div>
@@ -58,7 +66,7 @@
         </a>
     </li>
     <li>
-        <a href="{{ route('admin.recommendation.create')}}" class="nav-btn {{(\Request::is('*/recommendation/create')) ? 'active' : ''}} {{(\Request::is('*/recommendation')) ? 'active' : ''}} {{(\Request::is('*/recommendation/*')) ? 'active' : ''}}">
+        <a href="{{ route($route_prefix.'.recommendation.create')}}" class="nav-btn {{(\Request::is('*/recommendation/create')) ? 'active' : ''}} {{(\Request::is('*/recommendation')) ? 'active' : ''}} {{(\Request::is('*/recommendation/*')) ? 'active' : ''}}">
             <div class="nav-icon">
                 <i class="fas fa-thumbs-up"></i>
             </div>
@@ -67,6 +75,7 @@
             </div>
         </a>
     </li>
+    @if (auth()->user()->role == 1)
     <li>
         <a href="{{ route('admin.configuration.index')}}" class="nav-btn {{(\Request::is('*/configuration')) ? 'active' : ''}}">
             <div class="nav-icon">
@@ -77,4 +86,5 @@
             </div>
         </a>
     </li>
+    @endif
 </ul>

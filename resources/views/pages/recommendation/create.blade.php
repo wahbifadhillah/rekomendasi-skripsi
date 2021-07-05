@@ -1,8 +1,14 @@
 @extends('pages.recommendation.master')
 @section('recommendation')
     @parent
+    @php($route_prefix = NULL)
+    @if (auth()->user()->role == 1)
+        @php($route_prefix = 'admin')
+    @else
+        @php($route_prefix = 'kjfd')
+    @endif
     @if ($tree)
-        <form action="{{route('admin.recommendation.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route($route_prefix.'.recommendation.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <h5 class="mb-3">Data mahasiswa</h5>
             <input type="hidden" id="tree_id" name="tree_id" value="{{$selected_tree->tree_id}}">
@@ -177,7 +183,7 @@
             </div>
             <div class="d-flex justify-content-between mt-3 align-middle">
                 <div class="d-flex justify-content-start">
-                    <small>Mendapatkan rekomendasi menggunakan model pohon keputusan <a href="{{route('admin.decisiontree.show', $selected_tree->tree_id)}}"><span class="badge badge-primary">{{$selected_tree->tree_name}}</span></a></small>
+                    <small>Mendapatkan rekomendasi menggunakan model pohon keputusan <a href="{{route($route_prefix.'.decisiontree.show', $selected_tree->tree_id)}}"><span class="badge badge-primary">{{$selected_tree->tree_name}}</span></a></small>
                 </div>
                 <div class="d-flex justify-content-end">
                     <input type="submit" class="btn btn-primary" type="button" value="Dapatkan rekomendasi">
@@ -190,7 +196,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="boxed">
-                    Model pohon keputusan tidak ditemukan, latih dan buat <a href="{{route('admin.training.index')}}">model pohon keputusan</a> terlebih dahulu.
+                    Model pohon keputusan tidak ditemukan, latih dan buat <a href="{{route($route_prefix.'.training.index')}}">model pohon keputusan</a> terlebih dahulu.
                 </div>
             </div>
         </div>
