@@ -7,6 +7,7 @@ use App\Testing;
 use App\DecisionTree;
 use App\Configuration;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class DataTestingController extends Controller
 {
@@ -146,6 +147,11 @@ class DataTestingController extends Controller
 
     }
 
+    public function createTestingDir()
+    {
+        Storage::makeDirectory('csv/test');
+    }
+
     private function createCSVTestingData()
     {
         $headers = [
@@ -169,7 +175,7 @@ class DataTestingController extends Controller
         'mk_DDAP', 'mk_DIAP', 'mk_EPAP', 'mk_EASI', 'mk_MO', 'mk_MITI', 'mk_MLTI', 'mk_MP', 
         'mk_MPSI', 'mk_MRS', 'mk_MR', 'mk_PPB', 'mk_PSSI', 'mk_TKTI', 'mk_EA', 'mk_SBF', 'mk_MHP', 
         'class');
-
+        $this->createTestingDir();
         $file = fopen('../storage/app/csv/test/test-'.$filename.'.csv', 'w');
         fputcsv($file, $columns);
 

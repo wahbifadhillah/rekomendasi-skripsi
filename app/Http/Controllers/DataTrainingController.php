@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use DateTime;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class DataTrainingController extends Controller
 {
@@ -158,6 +159,12 @@ class DataTrainingController extends Controller
 
     }
 
+    public function createTrainingDir()
+    {
+        Storage::makeDirectory('csv/train');
+        Storage::makeDirectory('model');
+    }
+
     public function createCSVTrainingData()
     {
         $headers = [
@@ -181,7 +188,7 @@ class DataTrainingController extends Controller
         'mk_DDAP', 'mk_DIAP', 'mk_EPAP', 'mk_EASI', 'mk_MO', 'mk_MITI', 'mk_MLTI', 'mk_MP', 
         'mk_MPSI', 'mk_MRS', 'mk_MR', 'mk_PPB', 'mk_PSSI', 'mk_TKTI', 'mk_EA', 'mk_SBF', 'mk_MHP', 
         'class');
-
+        $this->createTrainingDir();
         $file = fopen('../storage/app/csv/train/train-'.$filename.'.csv', 'w');
         fputcsv($file, $columns);
 
@@ -477,6 +484,7 @@ class DataTrainingController extends Controller
         // $dir_weka_class_path = '~/Java/weka/weka.jar';
         
         // CREATE DATA AND RETURN FILENAME //
+        // dd('check');
         $filename = $this->createCSVTrainingData();
 
         // CONFIG //
