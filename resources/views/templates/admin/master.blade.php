@@ -15,6 +15,11 @@
     <script src="{{ URL::asset('svgdotjs/svg.draggable.js.map') }}"></script> --}}
 </head>
 <body>
+    @component('components.admin.navbar')
+        @slot('brand')
+            Sistem Rekomendasi Bidang Skripsi
+        @endslot
+    @endcomponent
     <div class="container-fluid px-0">
         <div class="row g-0">
             <div class="col-2">

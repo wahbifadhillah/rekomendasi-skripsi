@@ -1,5 +1,6 @@
-<div class="brand">
-    {{$brand}}
+<div class="userdata">
+    <span class="username">{{Auth::user()->name}}</span>
+    <small>{{Auth::user()->field}}</small>
 </div>
 @php($route_prefix = NULL)
 @if (auth()->user()->role == 1)

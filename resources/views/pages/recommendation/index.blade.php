@@ -134,7 +134,11 @@
             @if ($recommendations)
                 <small>Menampilkan {{$recommendations->firstItem()}} hingga {{$recommendations->perPage()*$recommendations->currentPage()}} dari {{$recommendations->total()}} data</small>
             @else
-                <small>Data tidak ditemukan, dapatkan <a href="{{route('admin.recommendation.create')}}">rekomendasi</a> bidang skripsi.</small>
+                @if(auth()->user()->role == 1)
+                    <small>Data tidak ditemukan, dapatkan <a href="{{route('admin.recommendation.create')}}">rekomendasi</a> bidang skripsi.</small>
+                @else
+                    <small>Model pohon keputusan belum dilatih oleh admin.</small>
+                @endif
             @endif
         </div>
             @if ($recommendations)

@@ -17094,11 +17094,20 @@ nav#sidebar {
   padding: 1em 2em;
 }
 
-nav#sidebar .brand {
-  font-weight: 600;
-  font-size: 1.2em;
+nav#sidebar .userdata {
+  margin-top: 0.5em;
   margin-bottom: 2em;
   padding-left: 0.8em;
+}
+
+nav#sidebar .userdata .username {
+  font-weight: 600;
+  font-size: 1.2em;
+  display: block;
+}
+
+nav#sidebar .userdata small {
+  display: block;
 }
 
 nav#sidebar ul {

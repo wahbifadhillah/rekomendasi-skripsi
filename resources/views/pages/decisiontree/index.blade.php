@@ -129,7 +129,11 @@
                     @elseif ($selected_tree)
                         <small>Data model pohon keputusan terbaru sedang ditampilkan..</small>
                     @elseif (!$trees)
-                        <small>Data tidak ditemukan, latih dan buat <a href="{{route('admin.training.index')}}">model pohon keputusan</a> terlebih dahulu.</small>
+                        @if(auth()->user()->role == 1)
+                            <small>Data tidak ditemukan, latih dan buat <a href="{{route($route_prefix.'.training.index')}}">model pohon keputusan</a> terlebih dahulu.</small>
+                        @else
+                            <small>Model pohon keputusan belum dilatih oleh admin.</small>
+                        @endif
                     @endif
                 </div>
                     @if ($trees)

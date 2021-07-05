@@ -28,11 +28,18 @@ nav{
     &#sidebar{
         padding: 1em 2em;
 
-        .brand{
-            font-weight: 600;
-            font-size: 1.2em;
+        .userdata{
+            margin-top: .5em;
             margin-bottom: 2em;
             padding-left: .8em;
+            .username{
+                font-weight: 600;
+                font-size: 1.2em;
+                display: block;
+            }
+            small{
+                display: block;
+            }
         }
 
         ul{

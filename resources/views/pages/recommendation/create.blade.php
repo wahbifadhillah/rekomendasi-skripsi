@@ -196,7 +196,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="boxed">
-                    Model pohon keputusan tidak ditemukan, latih dan buat <a href="{{route($route_prefix.'.training.index')}}">model pohon keputusan</a> terlebih dahulu.
+                    @if(auth()->user()->role == 1)
+                        Model pohon keputusan tidak ditemukan, latih dan buat <a href="{{route($route_prefix.'.training.index')}}">model pohon keputusan</a> terlebih dahulu.
+                    @else
+                        Model pohon keputusan belum dilatih oleh admin.
+                    @endif
                 </div>
             </div>
         </div>
