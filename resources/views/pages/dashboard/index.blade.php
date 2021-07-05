@@ -240,6 +240,8 @@
                 <div class="d-flex justify-content-end">{{$datasets->onEachSide(3)->appends($_GET)->links()}}</div>
             @endif
     </div>
+    @if ($dashboard_datasets_bidang_rekomendasi)
+        
     <script>
         // Load Data
         var bidang_rekomendasi = JSON.parse(`<?php echo $dashboard_datasets_bidang_rekomendasi; ?>`);
@@ -333,4 +335,5 @@
             }
         });
     </script>
+    @endif
 @endsection
