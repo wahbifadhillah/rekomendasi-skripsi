@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin - @yield('title')</title>
+    <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
     <script src="{{ URL::asset('chart.js/chart.js') }}"></script>
     <script src="{{ URL::asset('viz.js/viz.js') }}"></script>
-    <script src="{{ URL::asset('viz.js/full.render.js') }}"></script>
+    <script src="{{ URL::asset('viz.js/lite.render.js') }}"></script>
     <script src="{{ URL::asset('interactjs/interact.min.js') }}"></script>
-    {{-- <script src="{{ URL::asset('svgdotjs/svg.draggable.js') }}"></script> --}}
-    {{-- <script src="{{ URL::asset('svgdotjs/svg.js.map') }}"></script>
-    <script src="{{ URL::asset('svgdotjs/svg.draggable.js.map') }}"></script> --}}
 </head>
 <body>
     @component('components.admin.navbar')
