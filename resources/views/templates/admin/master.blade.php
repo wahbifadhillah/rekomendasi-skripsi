@@ -22,14 +22,38 @@
             <div class="col-2">
                 <nav id="sidebar">
                     @component('components.admin.sidebar')
-                        @slot('brand')
-                            Sistem Rekomendasi Bidang Skripsi
-                        @endslot
+                    @slot('brand')
+                    Sistem Rekomendasi Bidang Skripsi
+                    @endslot
                     @endcomponent
                 </nav>
             </div>
             <div class="col-10">
                 <section id="content">
+                    @if (Session::has('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {!!Session::get('success')!!}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+                    @if (Session::has('file_success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {!!Session::get('file_success')!!}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                    @if (Session::has('warning'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {!!Session::get('warning')!!}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
                     @component('components.admin.content')
                         @slot('head')
                             @yield('content_title')
@@ -43,6 +67,11 @@
         </div>
     </div>
     <script src="{{ URL::asset('js/app.js') }}"></script>
+    @if (Session::has('success'))
+    <script>
+        
+    </script>
+    @endif
     @yield('tree_script')
 </body>
 </html>

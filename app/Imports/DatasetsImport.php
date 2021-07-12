@@ -4,38 +4,48 @@ namespace App\Imports;
 
 use App\Dataset;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Illuminate\Validation\Rule;
+
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Validators\Failure;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
 
 
-class DatasetsImport implements ToModel
+class DatasetsImport implements ToModel, withValidation, SkipsOnFailure, SkipsEmptyRows
 {
+    use Importable, SkipsFailures;
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
+    private $rows = 0;
     private function transformGrade($grade){
-        if($grade == 'A'){
-            return 'A';
-        }elseif($grade == 'B+'){
+        if($grade == 'A' || $grade == 'a'){
+            return 'SB';
+        }elseif($grade == 'B+' || $grade == 'b+'){
             return 'B';
-        }elseif($grade == 'B'){
+        }elseif($grade == 'B' || $grade == 'b'){
             return 'B';
-        }elseif($grade == 'C+'){
+        }elseif($grade == 'C+' || $grade == 'c+'){
             return 'C';
-        }elseif($grade == 'C'){
+        }elseif($grade == 'C' || $grade == 'c'){
             return 'C';
-        }elseif($grade == 'D+'){
-            return 'D';
-        }elseif($grade == 'D'){
-            return 'D';
-        }elseif($grade == 'E'){
-            return 'E';
-        }elseif($grade == 'K'){
-            return 'E';
-        }elseif($grade == 'NULL'){
-            return 'E';
+        }elseif($grade == 'D+' || $grade == 'd+'){
+            return 'K';
+        }elseif($grade == 'D' || $grade == 'd'){
+            return 'K';
+        }elseif($grade == 'E' || $grade == 'e'){
+            return 'K';
+        }elseif($grade == 'K' || $grade == 'k'){
+            return 'K';
+        }elseif($grade == 'NULL' || $grade == '?' || $grade == '' || $grade == NULL){
+            return 'N';
         }else{
             return NULL;
         }
@@ -50,6 +60,7 @@ class DatasetsImport implements ToModel
     }
     public function model(array $row)
     {
+        ++$this->rows;
         return new Dataset([
             'NIM' => $row[0],
             'skripsi_judul' => $row[1],
@@ -97,4 +108,69 @@ class DatasetsImport implements ToModel
             'mk_MHP' => $this->transformGrade($row[43]),
         ]);
     }
+
+    public function getRowCount(): int
+    {
+        return $this->rows;
+    }
+
+    public function rules(): array
+    {
+        return [
+            '*.0' => ['required', 'unique:datasets,NIM'],
+            '*.1' => ['required'],
+            '*.2' => ['required'],
+            '*.3' => ['required'],
+            '*.5' => ['required', 'date'],
+            '*.6' => ['required', 'date'],
+            '*.7' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.8' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.9' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.10' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.11' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.12' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.13' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.14' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.15' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.16' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.17' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.18' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.19' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.20' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.21' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.22' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.23' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.24' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.25' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.26' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.27' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.28' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.29' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.31' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.32' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.33' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.34' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.35' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.36' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.37' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.38' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.39' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.40' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.41' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.42' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+            '*.43' => ['required', 'max:4', Rule::in(['A', 'B+', 'B', 'C+', 'C', 'D+', 'D', 'E', 'K', NULL, 'NULL', 'null', '?'])],
+        ];
+    }
+
+    public function customValidationMessages()
+{
+    return [
+        '1.in' => 'Custom message for :attribute.',
+    ];
+}
+
+    // public function onFailure(Failure ...$failures)
+    // {
+
+    // }
 }

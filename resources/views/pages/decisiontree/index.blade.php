@@ -9,6 +9,17 @@
     @endif
     @if ($selected_tree)
         <div class="d-flex justify-content-end mb-3">
+            @if (auth()->user()->role == 'kaprodi')
+                <div class="pr-3">
+                    <a href="{{route('admin.dataset.applymodel')}}" class="btn {{$use_model == 0 ? 'btn-warning':''}} {{$use_model == 1 ? 'btn-outline-warning text-dark disabled':''}} {{$use_model == 2 ? 'btn-outline-warning text-dark':''}} {{$tree ? 'disabled':''}}">
+                        @if ($use_model == 1 || $use_model == 2)
+                            Aplikasikan model pada dataset lagi
+                        @else
+                            Aplikasikan model pada dataset
+                        @endif
+                    </a>
+                </div>
+            @endif
             <a href="{{route($route_prefix.'.recommendation.createbytree', $selected_tree->tree_id)}}" class="btn btn-primary">
                 Gunakan model untuk mendapatkan rekomendasi
             </a>

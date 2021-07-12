@@ -58,6 +58,20 @@ class DecisionTreeController extends Controller
         $selected_tree = DecisionTree::latest()->first();
         $trees = NULL;
         $tree = NULL;
+        $use_model = 0;
+        $sbr_l = Dataset::latest()->first();
+        $sbr_o = Dataset::oldest()->first();
+        if($sbr_l){
+            if($sbr_l->skripsi_bidang_rekomendasi == NULL){
+                $use_model = 0;
+            }
+            if($sbr_o->skripsi_bidang_rekomendasi != NULL){
+                $use_model = 1;
+            }
+            if($sbr_l->skripsi_bidang_rekomendasi == NULL AND $sbr_o->skripsi_bidang_rekomendasi != NULL){
+                $use_model = 2;
+            }
+        }
         if(!$selected_tree){
             $selected_tree = NULL;
         }else{
@@ -66,11 +80,7 @@ class DecisionTreeController extends Controller
                 $trees = NULL;
             }
         }
-        // if(!$trees){
-        //     $trees = NULL;
-        // }
-        // dd($trees);
-        return view('pages.decisiontree.index', compact(['selected_tree', 'trees', 'tree']));
+        return view('pages.decisiontree.index', compact(['selected_tree', 'trees', 'tree', 'use_model']));
     }
 
     /**

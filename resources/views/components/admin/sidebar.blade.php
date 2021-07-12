@@ -1,6 +1,13 @@
 <div class="userdata">
     <span class="username">{{Auth::user()->name}}</span>
     <small>{{Auth::user()->field}}</small>
+    @if (Session::has('role_error'))
+    <div class="text-danger mt-2">
+        <small>
+            {{Session::get('role_error')}}
+        </small>
+    </div>
+    @endif
 </div>
 @php($route_prefix = NULL)
 @if (auth()->user()->role == 'kaprodi')

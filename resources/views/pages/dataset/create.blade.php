@@ -1,32 +1,33 @@
 @extends('pages.dataset.master')
 @section('dataset')
-{{-- @if ($info)    
-<div class="row mb-4">
-    <div class="col-12">
-        <div class="boxed">
-            <h5>Informasi File</h5>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi dolor dolorum consequatur nemo molestiae cum quae doloremque id nulla! Alias in iusto rem sunt. Porro dolorum minima at quaerat praesentium.
-            </p>
-            <div class="d-flex justify-content-end mt-4">
-                <a href="{{route('admin.dataset.index')}}" class="btn btn-primary">Kembali ke halaman dataset</a>
-            </div>
-        </div>
-    </div>
-</div>
-@endif --}}
 <form action="{{route('admin.dataset.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     <h5>Pilih file dengan format .csv</h5>
     <div class="input-group">
         <div class="custom-file">
-            <input type="file" class="custom-file-input" name="csv_dataset" id="csv_dataset" aria-describedby="inputGroupFileAddon04">
+            <input type="file" class="custom-file-input {{$errors->any() ? 'is-invalid':''}}" name="csv_dataset" id="csv_dataset" value="{{ old('csv_dataset')}}" aria-describedby="inputGroupFileAddon04">
             <label class="custom-file-label" for="csv_dataset">Choose file</label>
         </div>
         <div class="input-group-append">
             <input type="submit" class="btn btn-primary" type="button" value="Unggah">
         </div>
     </div>
+    @if ($errors->any())
+        <div class="text-danger">
+            @foreach ($errors->all() as $error)
+            <small>
+                {{ $error }}
+            </small>
+            @endforeach
+        </div>
+    @endif
+    @if (Session::has('file_error'))
+    <div class="text-danger">
+        <small>
+            {{ Session::get('file_error') }}
+        </small>
+    </div>
+    @endif
 </form>
 <div class="row mt-4">
     <div class="col-12">

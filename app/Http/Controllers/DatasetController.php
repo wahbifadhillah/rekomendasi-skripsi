@@ -140,9 +140,31 @@ class DatasetController extends Controller
      */
     public function store(Request $request)
     {
-        Excel::import(new DatasetsImport, $request->file('csv_dataset')->store('temp'));
+        $request->validate([
+            'csv_dataset' => 'required|mimes:csv',
+        ],
+        [
+            'csv_dataset.required' => 'Anda harus memilih file dengan format .csv.',
+            'csv_dataset.mimes' => 'File yang anda pilih harus file dengan format .csv.',
+        ]);
+
+        $import = new DatasetsImport;
+        $xl = $import->toCollection($request->file('csv_dataset'));
+        // dd($xl[0]->first());
+        if($xl[0]->first()->count() != 44){
+            return redirect()->back()->with('file_error', "Jumlah kolom tidak sesuai: Kolom = ".$xl[0]->first()->count().", diijinkan = 44");
+        }
+        Excel::import($import, $request->file('csv_dataset')->store('temp'));
+        $msg = "Dataset telah di pre-process dan ".$import->getRowCount()." data baru berhasil ditambahkan.";
+        if($import->getRowCount() == 0){
+            $msg = "Terdapat ".$import->failures()->count()." duplikasi data pada file .csv, tidak ada data yang ditambahkan.";
+            return redirect()->route('admin.dataset.index')->with('warning', $msg);
+        }elseif($import->failures()->count() > 0 && $import->getRowCount() > 0){
+            $msg = "Terdapat ".$import->failures()->count()." duplikasi data pada file .csv, ".$import->getRowCount()." data baru telah di pre-process dan berhasil ditambahkan.";
+        }
+        // dd('Row count: ' . $import->getRowCount()); 
         // $info = TRUE;
-        return redirect()->route('admin.dataset.index');
+        return redirect()->route('admin.dataset.index')->with('file_success', $msg);
     }
 
     /**
@@ -284,7 +306,7 @@ class DatasetController extends Controller
             ]);
         }
 
-        return redirect('admin/training');
+        return redirect('admin/training')->with('success', "Dataset telah dibagi menjadi data latih dan data uji.");
     }
 
     public function applyModel(){
@@ -293,6 +315,6 @@ class DatasetController extends Controller
         $decision_tree = new DecisionTreeController;
         $decision_tree->useModel($dataset, $table, NULL);
 
-        return redirect('admin/dataset');
+        return redirect('admin/dataset')->with('success',"Rekomendasi (Model pohon keputusan) telah diaplikasikan ke dataset, <a href='".route('admin.dashboard.index')."'>klik disini</a> untuk melihat visualisasi data.");
     }
 }

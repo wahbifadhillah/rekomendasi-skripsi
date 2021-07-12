@@ -29,10 +29,7 @@
 @section('dataset')
     @parent
     <div class="d-flex justify-content-end mb-3">
-        {{-- <button class="btn btn-primary" type="button">Buat data latih dan data uji</button> --}}
-        {{-- {{dd($use_model)}} --}}
         <div class="pr-3">
-            {{-- {{dd($use_model)}} --}}
             <a href="{{route('admin.dataset.applymodel')}}" class="btn {{$use_model == 0 ? 'btn-warning':''}} {{$use_model == 1 ? 'btn-outline-warning text-dark disabled':''}} {{$use_model == 2 ? 'btn-outline-warning text-dark':''}} {{$tree ? 'disabled':''}}">
                 @if ($use_model == 1 || $use_model == 2)
                     Aplikasikan model pada dataset lagi
@@ -274,4 +271,73 @@
                 <div class="d-flex justify-content-end">{{$datasets->onEachSide(3)->appends($_GET)->links()}}</div>
             @endif
     </div>
+    @if (Session::has('file_success'))
+    <div class="modal fade" id="pre-process" tabindex="-1" aria-labelledby="pre-processLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pre-processLabel">Pre-processing data</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p>Data telah di pre-processing dengan ketentuan sebagai berikut:</p>
+                <table class="table table-sm">
+                    <thead>
+                        <th class="px-2">Nilai Mata Kuliah</th>
+                        <th class="px-2 table-separator">Transformasi</th>
+                        <th class="px-2 table-separator">Keterangan</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="px-2">A</td>
+                            <td class="px-2 table-separator">SB</td>
+                            <td class="px-2 table-separator">Sangat Baik</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2">B+</td>
+                            <td class="px-2 table-separator" rowspan="2">B</td>
+                            <td class="px-2 table-separator" rowspan="2">Baik</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2">B</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2">C+</td>
+                            <td class="px-2 table-separator" rowspan="2">C</td>
+                            <td class="px-2 table-separator" rowspan="2">Cukup</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2">C</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2">D+</td>
+                            <td class="px-2 table-separator" rowspan="4">K</td>
+                            <td class="px-2 table-separator" rowspan="4">Kurang</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2">D</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2">E</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2">K</td>
+                        </tr>
+                        <tr>
+                            <td class="px-2"><i>NULL</i></td>
+                            <td class="px-2 table-separator">N</td>
+                            <td class="px-2 table-separator">Nilai Kosong</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
 @endsection

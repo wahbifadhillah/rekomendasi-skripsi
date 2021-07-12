@@ -23,10 +23,10 @@ class DataTrainingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('role:kaprodi');
+    }
     
     private $mk_list = array('mk_PGI', 'mk_SIGD1', 'mk_SIGD2', 
     'mk_SIGL', 'mk_SPK', 'mk_ABD', 'mk_BDT', 'mk_DBD', 'mk_DM', 'mk_DW', 'mk_KB', 'mk_PBD', 
@@ -469,22 +469,13 @@ class DataTrainingController extends Controller
         $dir_base_path = base_path().'/';
         $dir_base_path = str_replace('\\', '/', $dir_base_path);
         $dir_weka_class_path = $dir_base_path.'dependency/weka.jar';
-        // $dir_base_path = $config->base_path;
-        // $dir_weka_class_path = $config->weka_path;
         $dir_data_train_file = $dir_base_path.'storage/app/csv/train/';
         $dir_model = $dir_base_path.'storage/app/model/';
+        
         if($config->OS == 'WINDOWS 10'){
             $dir_separator = '"';
         }
-        // WINDOWS
-        // $dir_base_path = 'C:/xampp/htdocs/rekomendasi/';
-        // $dir_weka_class_path = 'C:/Program Files/Weka-3-8-4/weka.jar';
-        // LINUX/ UBUNTU
-        // $dir_base_path = '~/Websites/rekomendasi/';
-        // $dir_weka_class_path = '~/Java/weka/weka.jar';
         
-        // CREATE DATA AND RETURN FILENAME //
-        // dd('check');
         $filename = $this->createCSVTrainingData();
 
         // CONFIG //
@@ -492,7 +483,7 @@ class DataTrainingController extends Controller
         $weka_class_path=$dir_separator.$dir_weka_class_path.$dir_separator.' ';
 
         // Legal values options for MK and Bidang Skripsi
-        $legal_mk = '-L 1-37:A,B,C,D,E';
+        $legal_mk = '-L 1-37:SB,B,C,K,N';
         $legal_class = '-L 38:"Manajemen Data & Informasi","Pengembangan Sistem Informasi","Sistem Informasi Geografis","Tata Kelola & Manajemen Sistem Informasi"';
 
         // Datasets on web app (system dir)

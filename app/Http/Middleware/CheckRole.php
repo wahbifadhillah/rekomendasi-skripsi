@@ -9,16 +9,14 @@ class CheckRole
     public function handle($request, Closure $next, ...$roles)
     {
         if (!auth()->check()){
-            return redirect('login');
+            return redirect('login')->with('error',"Anda harus login terlebih dahulu.");
         }
 
-        // $user = auth()->user();
-        // dd($request->user()->role);
-        // dd($roles);
-        if (!in_array($request->user()->role, $roles)){
-            return redirect('home')->with('error',"Only admin can access!");
+        $role = $request->user()->role;
+        $route = $role == 'kaprodi' ? 'admin':'kjfd';
+        if (!in_array($role, $roles)){
+            return redirect($route.'/dashboard')->with('role_error',"Anda tidak mempunyai akses ke halaman tersebut.".$route);
         }
-        
         return $next($request);
     }
 }
