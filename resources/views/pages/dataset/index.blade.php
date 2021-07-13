@@ -328,7 +328,7 @@
                         <tr>
                             <td class="px-2"><i>NULL</i></td>
                             <td class="px-2 table-separator">N</td>
-                            <td class="px-2 table-separator">Nilai Kosong</td>
+                            <td class="px-2 table-separator">Nilai Kosong/ Tidak mengambil Matkul</td>
                         </tr>
                     </tbody>
                 </table>

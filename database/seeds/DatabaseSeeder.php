@@ -28,8 +28,8 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123mdi'),
         ]);
         DB::table('users')->insert([
-            'name' => 'Djoko Pramono, S.T., M.Kom.',
-            'email' => 'djoko.jalin@ub.ac.id',
+            'name' => 'Bondan Sapta Prakoso, S.T., M.Kom.',
+            'email' => 'bondan.jalin@ub.ac.id',
             'role' => 'kjfd',
             'field' => 'Koordinator KJFD Pengembangan Sistem Informasi',
             'password' => Hash::make('123psi'),

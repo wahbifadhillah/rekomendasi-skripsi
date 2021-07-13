@@ -89,7 +89,7 @@ class RecommendationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'NIM' => 'required|min:10|max:16',
+            'NIM' => 'required|min:10|max:16|unique:recommendations,NIM',
             'mk_PGI' => Rule::in(['A','a','B+', 'b+', 'B', 'b', 'C+', 'c+', 'C', 'c', 'D+', 'd+', 'D', 'd', 'E', 'e', 'K', 'k', NULL, 'NULL', 'null', '']),
             'mk_SIGD1' => Rule::in(['A','a','B+', 'b+', 'B', 'b', 'C+', 'c+', 'C', 'c', 'D+', 'd+', 'D', 'd', 'E', 'e', 'K', 'k', NULL, 'NULL', 'null', '']),
             'mk_SIGD2' => Rule::in(['A','a','B+', 'b+', 'B', 'b', 'C+', 'c+', 'C', 'c', 'D+', 'd+', 'D', 'd', 'E', 'e', 'K', 'k', NULL, 'NULL', 'null', '']),
@@ -132,6 +132,7 @@ class RecommendationController extends Controller
             'NIM.required' => 'NIM harus diisi.',
             'NIM.min' => 'Minimal panjang NIM adalah 10.',
             'NIM.max' => 'Minimal panjang NIM adalah 16.',
+            'NIM.unique' => 'Mahasiswa dengan NIM ini telah mendapatkan rekomendasi.',
             'mk_PGI.in' => 'Nilai yang diijinkan adalah: A, B+, B, C+, C, D+, D, E, K, NULL, " " atau (kosong).',
             'mk_SIGD1.in' => 'Nilai yang diijinkan adalah: A, B+, B, C+, C, D+, D, E, K, NULL, " " atau (kosong).',
             'mk_SIGD2.in' => 'Nilai yang diijinkan adalah: A, B+, B, C+, C, D+, D, E, K, NULL, " " atau (kosong).',
@@ -215,7 +216,7 @@ class RecommendationController extends Controller
         $table = 'recommendations';
         $decision_tree = new DecisionTreeController;
         $decision_tree->useModel($recommendation, $table, $request->tree_id);
-        return redirect('admin/recommendation/'.$recommendation['id']);
+        return redirect('admin/recommendation/'.$recommendation['id'])->with('pp_success', "Data telah di pre-process dan berhasil ditambahkan");
     }
 
     /**
@@ -226,9 +227,113 @@ class RecommendationController extends Controller
      */
     public function show($id)
     {
+        $p_check = ["PGI" => "mk_PGI", 
+        "SIGD1" => "mk_SIGD1", 
+        "SIGD2" => "mk_SIGD2", 
+        "SIGL" => "mk_SIGL", 
+        "SPK" => "mk_SPK", 
+        "ABD" => "mk_ABD", 
+        "BDT" => "mk_BDT", 
+        "DBD" => "mk_DBD", 
+        "DM" => "mk_DM", 
+        "DW" => "mk_DW", 
+        "KB" => "mk_KB", 
+        "PBD" => "mk_PBD", 
+        "ADSI" => "mk_ADSI", 
+        "DPSI" => "mk_DPSI", 
+        "IPSI" => "mk_IPSI", 
+        "PABW" => "mk_PABW", 
+        "PBPU" => "mk_PBPU", 
+        "PPP" => "mk_PPP", 
+        "SE" => "mk_SE", 
+        "PL" => "mk_PL", 
+        "DDAP" => "mk_DDAP", 
+        "DIAP" => "mk_DIAP", 
+        "EPAP" => "mk_EPAP", 
+        "EASI" => "mk_EASI", 
+        "MO" => "mk_MO", 
+        "MITI" => "mk_MITI", 
+        "MLTI" => "mk_MLTI", 
+        "MP" => "mk_MP", 
+        "MPSI" => "mk_MPSI", 
+        "MRS" => "mk_MRS", 
+        "MR" => "mk_MR", 
+        "PPB" => "mk_PPB", 
+        "PSSI" => "mk_PSSI", 
+        "TKTI" => "mk_TKTI", 
+        "EA" => "mk_EA", 
+        "SBF" => "mk_SBF", 
+        "MHP" => "mk_MHP"];
+
+        $pointer = ["mk_PGI" => "PGI", 
+        "mk_SIGD1" => "SIGD1", 
+        "mk_SIGD2" => "SIGD2", 
+        "mk_SIGL" => "SIGL", 
+        "mk_SPK" => "SPK", 
+        "mk_ABD" => "ABD", 
+        "mk_BDT" => "BDT", 
+        "mk_DBD" => "DBD", 
+        "mk_DM" => "DM", 
+        "mk_DW" => "DW", 
+        "mk_KB" => "KB", 
+        "mk_PBD" => "PBD", 
+        "mk_ADSI" => "ADSI", 
+        "mk_DPSI" => "DPSI", 
+        "mk_IPSI" => "IPSI", 
+        "mk_PABW" => "PABW", 
+        "mk_PBPU" => "PBPU", 
+        "mk_PPP" => "PPP", 
+        "mk_SE" => "SE", 
+        "mk_PL" => "PL", 
+        "mk_DDAP" => "DDAP", 
+        "mk_DIAP" => "DIAP", 
+        "mk_EPAP" => "EPAP", 
+        "mk_EASI" => "EASI", 
+        "mk_MO" => "MO", 
+        "mk_MITI" => "MITI", 
+        "mk_MLTI" => "MLTI", 
+        "mk_MP" => "MP", 
+        "mk_MPSI" => "MPSI", 
+        "mk_MRS" => "MRS", 
+        "mk_MR" => "MR", 
+        "mk_PPB" => "PPB", 
+        "mk_PSSI" => "PSSI", 
+        "mk_TKTI" => "TKTI", 
+        "mk_EA" => "EA", 
+        "mk_SBF" => "SBF", 
+        "mk_MHP" => "MHP"];
         $recommendation = Recommendation::where('id', $id)->first();
+        $rec = collect($recommendation);
+        $g_sb = [];
+        $g_b = [];
+        $g_c = [];
+        $g_k = [];
+        $g_n = [];
+        foreach($rec as $key => $value){
+            if(in_array($key, $p_check)){
+                if($value == 'SB'){
+                    array_push($g_sb, $pointer[$key]);
+                }elseif($value == 'B'){
+                    array_push($g_b, $pointer[$key]);
+                }elseif($value == 'C'){
+                    array_push($g_c, $pointer[$key]);
+                }elseif($value == 'K'){
+                    array_push($g_k, $pointer[$key]);
+                }elseif($value == 'N'){
+                    array_push($g_n, $pointer[$key]);
+                }
+            }
+        }
+        $ggrade = collect([
+            'Sangat Baik' => $g_sb,
+            'Baik' => $g_b,
+            'Cukup' => $g_c,
+            'Kurang' => $g_k,
+            'Tidak Ada' => $g_n,
+        ]);
+        // dd($ggrade);
         $researches = Dataset::where('skripsi_bidang', $recommendation->skripsi_bidang_rekomendasi)->paginate(15);
-        return view('pages.recommendation.show', compact(['recommendation', 'researches']));
+        return view('pages.recommendation.show', compact(['recommendation', 'researches', 'ggrade']));
     }
 
     /**

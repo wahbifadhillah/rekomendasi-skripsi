@@ -1,6 +1,34 @@
 @extends('pages.recommendation.master')
 @section('recommendation')
     @parent
+    <h5 class="mb-3">Keterangan Nilai Mata Kuliah</h5>
+    <table class="table table-sm">
+        <tbody>
+            <tr class="statistic-table-top">
+                <th scope="row" class="px-3 table-separator">
+                    <span class='badge badge-success'>SB</span>
+                </th>
+                <td scope="row" class="px-3">Sangat Baik</td>
+                <th scope="row" class="px-3 table-separator">
+                    <span class='badge badge-success'>B</span>
+                </th>
+                <td scope="row" class="px-3">Baik</td>
+                <th scope="row" class="px-3 table-separator">
+                    <span class='badge badge-success'>C</span>
+                </th>
+                <td scope="row" class="px-3">Cukup</td>
+                <th scope="row" class="px-3 table-separator">
+                    <span class='badge badge-success'>K</span>
+                </th>
+                <td scope="row" class="px-3">Kurang</td>
+                <th scope="row" class="px-3 table-separator">
+                    <span class='badge badge-secondary'>N</span>
+                </th>
+                <td scope="row" class="px-3">Mata kuliah tidak diambil oleh mahasiswa.</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mt-3"></div>
     <table class="table table-sm data-table">
         <thead>
             <tr>
@@ -51,6 +79,21 @@
         </thead>
     
         <tbody>
+            @php
+                function viewGrade($pgrade){
+                    if($pgrade == 'SB'){
+                        echo ("<span class='badge badge-success'>SB</span>");
+                    }elseif ($pgrade == 'B') {
+                        echo ("<span class='badge badge-success'>B</span>");
+                    }elseif($pgrade == 'C'){
+                        echo ("<span class='badge badge-success'>C</span>");
+                    }elseif($pgrade == 'K'){
+                        echo ("<span class='badge badge-success'>K</span>");
+                    }elseif($pgrade == 'N'){
+                        echo ("<span class='badge badge-secondary'>N</span>");
+                    }
+                }
+            @endphp
             @if ($recommendations)
                 @foreach ($recommendations as $recommendation)
                     <tr>
@@ -86,43 +129,43 @@
                                 -
                             @endif
                         </td>
-                        <td class="table-separator pl-4 pr-3">{{$recommendation->mk_PGI}}</td>
-                        <td class="px-3">{{$recommendation->mk_SIGD1}}</td>
-                        <td class="px-3">{{$recommendation->mk_SIGD2}}</td>
-                        <td class="px-3">{{$recommendation->mk_SIGL}}</td>
-                        <td class="px-3">{{$recommendation->mk_SPK}}</td>
-                        <td class="px-3">{{$recommendation->mk_ABD}}</td>
-                        <td class="px-3">{{$recommendation->mk_BDT}}</td>
-                        <td class="px-3">{{$recommendation->mk_DBD}}</td>
-                        <td class="px-3">{{$recommendation->mk_DM}}</td>
-                        <td class="px-3">{{$recommendation->mk_DW}}</td>
-                        <td class="px-3">{{$recommendation->mk_KB}}</td>
-                        <td class="px-3">{{$recommendation->mk_PBD}}</td>
-                        <td class="px-3">{{$recommendation->mk_ADSI}}</td>
-                        <td class="px-3">{{$recommendation->mk_DPSI}}</td>
-                        <td class="px-3">{{$recommendation->mk_IPSI}}</td>
-                        <td class="px-3">{{$recommendation->mk_PABW}}</td>
-                        <td class="px-3">{{$recommendation->mk_PBPU}}</td>
-                        <td class="px-3">{{$recommendation->mk_PPP}}</td>
-                        <td class="px-3">{{$recommendation->mk_SE}}</td>
-                        <td class="px-3">{{$recommendation->mk_PL}}</td>
-                        <td class="px-3">{{$recommendation->mk_DDAP}}</td>
-                        <td class="px-3">{{$recommendation->mk_DIAP}}</td>
-                        <td class="px-3">{{$recommendation->mk_EPAP}}</td>
-                        <td class="px-3">{{$recommendation->mk_EASI}}</td>
-                        <td class="px-3">{{$recommendation->mk_MO}}</td>
-                        <td class="px-3">{{$recommendation->mk_MITI}}</td>
-                        <td class="px-3">{{$recommendation->mk_MLTI}}</td>
-                        <td class="px-3">{{$recommendation->mk_MP}}</td>
-                        <td class="px-3">{{$recommendation->mk_MPSI}}</td>
-                        <td class="px-3">{{$recommendation->mk_MRS}}</td>
-                        <td class="px-3">{{$recommendation->mk_MR}}</td>
-                        <td class="px-3">{{$recommendation->mk_PPB}}</td>
-                        <td class="px-3">{{$recommendation->mk_PSSI}}</td>
-                        <td class="px-3">{{$recommendation->mk_TKTI}}</td>
-                        <td class="px-3">{{$recommendation->mk_EA}}</td>
-                        <td class="px-3">{{$recommendation->mk_SBF}}</td>
-                        <td class="px-3">{{$recommendation->mk_MHP}}</td>
+                        <td class="table-separator pl-4 pr-3">{!!viewGrade($recommendation->mk_PGI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_SIGD1)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_SIGD2)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_SIGL)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_SPK)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_ABD)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_BDT)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_DBD)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_DM)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_DW)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_KB)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_PBD)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_ADSI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_DPSI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_IPSI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_PABW)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_PBPU)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_PPP)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_SE)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_PL)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_DDAP)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_DIAP)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_EPAP)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_EASI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_MO)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->MK_MITI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_MLTI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_MP)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_MPSI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_MRS)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_MR)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_PPB)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_PSSI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_TKTI)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_EA)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_SBF)!!}</td>
+                        <td class="px-3">{!!viewGrade($recommendation->mk_MHP)!!}</td>
                     </tr>
                 @endforeach
             @endif
