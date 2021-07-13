@@ -19,12 +19,14 @@ class CreateConfigurationsTable extends Migration
         Schema::create('configurations', function (Blueprint $table) {
             $table->id();
             $table->string('OS');
+            $table->boolean('configured');
             $table->timestamps();
         });
 
         DB::table('configurations')->insert(
             array(
-                'OS' => 'WINDOWS 10',
+                'OS' => '',
+                'configured' => FALSE,
                 'created_at' => $current_date_time,
                 'updated_at' => $current_date_time
             )

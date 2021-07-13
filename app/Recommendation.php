@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recommendation extends Model
 {
     protected $table = 'recommendations';
+    protected $primaryKey = 'NIM';
     protected $fillable = ['NIM', 
     'skripsi_bidang_rekomendasi',
     'mk_PGI', 

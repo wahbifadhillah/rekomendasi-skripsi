@@ -77,6 +77,7 @@ class ConfigurationController extends Controller
     {
         $config = Configuration::where('id', $id)->first();
         $config->OS = $request->OS;
+        $config->configured = TRUE;
         $config->save();
         return redirect('admin/configuration/');
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Recommendation;
 use App\Dataset;
 use App\DecisionTree;
+use Session;
 use Illuminate\Validation\Rule;
 
 class RecommendationController extends Controller
@@ -88,6 +89,14 @@ class RecommendationController extends Controller
 
     public function store(Request $request)
     {
+        $check = collect($request->all())->except(['_token', 'tree_id', 'NIM']);
+        $check_counter = 0;
+        foreach($check as $mk){
+            if(!$mk){
+                $check_counter += 1;
+            }
+        }
+        
         $request->validate([
             'NIM' => 'required|min:10|max:16|unique:recommendations,NIM',
             'mk_PGI' => Rule::in(['A','a','B+', 'b+', 'B', 'b', 'C+', 'c+', 'C', 'c', 'D+', 'd+', 'D', 'd', 'E', 'e', 'K', 'k', NULL, 'NULL', 'null', '']),
@@ -131,7 +140,7 @@ class RecommendationController extends Controller
         [
             'NIM.required' => 'NIM harus diisi.',
             'NIM.min' => 'Minimal panjang NIM adalah 10.',
-            'NIM.max' => 'Minimal panjang NIM adalah 16.',
+            'NIM.max' => 'Maksimal panjang NIM adalah 16.',
             'NIM.unique' => 'Mahasiswa dengan NIM ini telah mendapatkan rekomendasi.',
             'mk_PGI.in' => 'Nilai yang diijinkan adalah: A, B+, B, C+, C, D+, D, E, K, NULL, " " atau (kosong).',
             'mk_SIGD1.in' => 'Nilai yang diijinkan adalah: A, B+, B, C+, C, D+, D, E, K, NULL, " " atau (kosong).',
@@ -171,52 +180,59 @@ class RecommendationController extends Controller
             'mk_SBF.in' => 'Nilai yang diijinkan adalah: A, B+, B, C+, C, D+, D, E, K, NULL, " " atau (kosong).',
             'mk_MHP.in' => 'Nilai yang diijinkan adalah: A, B+, B, C+, C, D+, D, E, K, NULL, " " atau (kosong).',
         ]);
+        
         $recommendation = new Recommendation;
-        $recommendation = Recommendation::create([
-            'NIM' => $request->NIM,
-            'skripsi_bidang_rekomendasi' => NULL,
-            'mk_PGI' => $this->transformGrade($request->mk_PGI),
-            'mk_SIGD1' => $this->transformGrade($request->mk_SIGD1),
-            'mk_SIGD2' => $this->transformGrade($request->mk_SIGD2),
-            'mk_SIGL' => $this->transformGrade($request->mk_SIGL),
-            'mk_SPK' => $this->transformGrade($request->mk_SPK),
-            'mk_ABD' => $this->transformGrade($request->mk_ABD),
-            'mk_BDT' => $this->transformGrade($request->mk_BDT),
-            'mk_DBD' => $this->transformGrade($request->mk_DBD),
-            'mk_DM' => $this->transformGrade($request->mk_DM),
-            'mk_DW' => $this->transformGrade($request->mk_DW),
-            'mk_KB' => $this->transformGrade($request->mk_KB),
-            'mk_PBD' => $this->transformGrade($request->mk_PBD),
-            'mk_ADSI' => $this->transformGrade($request->mk_ADSI),
-            'mk_DPSI' => $this->transformGrade($request->mk_DPSI),
-            'mk_IPSI' => $this->transformGrade($request->mk_IPSI),
-            'mk_PABW' => $this->transformGrade($request->mk_PABW),
-            'mk_PBPU' => $this->transformGrade($request->mk_PBPU),
-            'mk_PPP' => $this->transformGrade($request->mk_PPP),
-            'mk_SE' => $this->transformGrade($request->mk_SE),
-            'mk_PL' => $this->transformGrade($request->mk_PL),
-            'mk_DDAP' => $this->transformGrade($request->mk_DDAP),
-            'mk_DIAP' => $this->transformGrade($request->mk_DIAP),
-            'mk_EPAP' => $this->transformGrade($request->mk_EPAP),
-            'mk_EASI' => $this->transformGrade($request->mk_EASI),
-            'mk_MO' => $this->transformGrade($request->mk_MO),
-            'mk_MITI' => $this->transformGrade($request->mk_MITI),
-            'mk_MLTI' => $this->transformGrade($request->mk_MLTI),
-            'mk_MP' => $this->transformGrade($request->mk_MP),
-            'mk_MPSI' => $this->transformGrade($request->mk_MPSI),
-            'mk_MRS' => $this->transformGrade($request->mk_MRS),
-            'mk_MR' => $this->transformGrade($request->mk_MR),
-            'mk_PPB' => $this->transformGrade($request->mk_PPB),
-            'mk_PSSI' => $this->transformGrade($request->mk_PSSI),
-            'mk_TKTI' => $this->transformGrade($request->mk_TKTI),
-            'mk_EA' => $this->transformGrade($request->mk_EA),
-            'mk_SBF' => $this->transformGrade($request->mk_SBF),
-            'mk_MHP' => $this->transformGrade($request->mk_MHP)
-        ]);
+        if($check_counter == 37){
+            return redirect()->back()->with('empty_error', "Semua nilai mata kuliah tidak boleh kosong!")->withInput($request->input());
+        }else{
+            $recommendation = Recommendation::create([
+                'NIM' => $request->NIM,
+                'skripsi_bidang_rekomendasi' => NULL,
+                'mk_PGI' => $this->transformGrade($request->mk_PGI),
+                'mk_SIGD1' => $this->transformGrade($request->mk_SIGD1),
+                'mk_SIGD2' => $this->transformGrade($request->mk_SIGD2),
+                'mk_SIGL' => $this->transformGrade($request->mk_SIGL),
+                'mk_SPK' => $this->transformGrade($request->mk_SPK),
+                'mk_ABD' => $this->transformGrade($request->mk_ABD),
+                'mk_BDT' => $this->transformGrade($request->mk_BDT),
+                'mk_DBD' => $this->transformGrade($request->mk_DBD),
+                'mk_DM' => $this->transformGrade($request->mk_DM),
+                'mk_DW' => $this->transformGrade($request->mk_DW),
+                'mk_KB' => $this->transformGrade($request->mk_KB),
+                'mk_PBD' => $this->transformGrade($request->mk_PBD),
+                'mk_ADSI' => $this->transformGrade($request->mk_ADSI),
+                'mk_DPSI' => $this->transformGrade($request->mk_DPSI),
+                'mk_IPSI' => $this->transformGrade($request->mk_IPSI),
+                'mk_PABW' => $this->transformGrade($request->mk_PABW),
+                'mk_PBPU' => $this->transformGrade($request->mk_PBPU),
+                'mk_PPP' => $this->transformGrade($request->mk_PPP),
+                'mk_SE' => $this->transformGrade($request->mk_SE),
+                'mk_PL' => $this->transformGrade($request->mk_PL),
+                'mk_DDAP' => $this->transformGrade($request->mk_DDAP),
+                'mk_DIAP' => $this->transformGrade($request->mk_DIAP),
+                'mk_EPAP' => $this->transformGrade($request->mk_EPAP),
+                'mk_EASI' => $this->transformGrade($request->mk_EASI),
+                'mk_MO' => $this->transformGrade($request->mk_MO),
+                'mk_MITI' => $this->transformGrade($request->mk_MITI),
+                'mk_MLTI' => $this->transformGrade($request->mk_MLTI),
+                'mk_MP' => $this->transformGrade($request->mk_MP),
+                'mk_MPSI' => $this->transformGrade($request->mk_MPSI),
+                'mk_MRS' => $this->transformGrade($request->mk_MRS),
+                'mk_MR' => $this->transformGrade($request->mk_MR),
+                'mk_PPB' => $this->transformGrade($request->mk_PPB),
+                'mk_PSSI' => $this->transformGrade($request->mk_PSSI),
+                'mk_TKTI' => $this->transformGrade($request->mk_TKTI),
+                'mk_EA' => $this->transformGrade($request->mk_EA),
+                'mk_SBF' => $this->transformGrade($request->mk_SBF),
+                'mk_MHP' => $this->transformGrade($request->mk_MHP)
+            ]);
+        }
+        // dd($recommendation);
         $table = 'recommendations';
         $decision_tree = new DecisionTreeController;
-        $decision_tree->useModel($recommendation, $table, $request->tree_id);
-        return redirect('admin/recommendation/'.$recommendation['id'])->with('pp_success', "Data telah di pre-process dan berhasil ditambahkan");
+        $decision_tree->useModel($request->NIM, $table, $request->tree_id);
+
+        return redirect('admin/recommendation/'.$request->NIM)->with('pp_success', "Data telah di pre-process dan berhasil ditambahkan");
     }
 
     /**
@@ -225,7 +241,7 @@ class RecommendationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($NIM)
     {
         $p_check = ["PGI" => "mk_PGI", 
         "SIGD1" => "mk_SIGD1", 
@@ -302,7 +318,7 @@ class RecommendationController extends Controller
         "mk_EA" => "EA", 
         "mk_SBF" => "SBF", 
         "mk_MHP" => "MHP"];
-        $recommendation = Recommendation::where('id', $id)->first();
+        $recommendation = Recommendation::where('NIM', $NIM)->first();
         $rec = collect($recommendation);
         $g_sb = [];
         $g_b = [];

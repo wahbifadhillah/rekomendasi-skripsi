@@ -1,33 +1,36 @@
 @extends('pages.recommendation.master')
 @section('recommendation')
     @parent
+    
     <h5 class="mb-3">Keterangan Nilai Mata Kuliah</h5>
-    <table class="table table-sm">
-        <tbody>
-            <tr class="statistic-table-top">
-                <th scope="row" class="px-3 table-separator">
-                    <span class='badge badge-success'>SB</span>
-                </th>
-                <td scope="row" class="px-3">Sangat Baik</td>
-                <th scope="row" class="px-3 table-separator">
-                    <span class='badge badge-success'>B</span>
-                </th>
-                <td scope="row" class="px-3">Baik</td>
-                <th scope="row" class="px-3 table-separator">
-                    <span class='badge badge-success'>C</span>
-                </th>
-                <td scope="row" class="px-3">Cukup</td>
-                <th scope="row" class="px-3 table-separator">
-                    <span class='badge badge-success'>K</span>
-                </th>
-                <td scope="row" class="px-3">Kurang</td>
-                <th scope="row" class="px-3 table-separator">
-                    <span class='badge badge-secondary'>N</span>
-                </th>
-                <td scope="row" class="px-3">Mata kuliah tidak diambil oleh mahasiswa.</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="bg-light py-3">
+        <table class="table table-sm my-0">
+            <tbody>
+                <tr class="statistic-table-top">
+                    <th scope="row" class="px-3">
+                        <span class='badge badge-success'>SB</span>
+                    </th>
+                    <td scope="row" class="px-3">Sangat Baik</td>
+                    <th scope="row" class="px-3 table-separator">
+                        <span class='badge badge-success'>B</span>
+                    </th>
+                    <td scope="row" class="px-3">Baik</td>
+                    <th scope="row" class="px-3 table-separator">
+                        <span class='badge badge-success'>C</span>
+                    </th>
+                    <td scope="row" class="px-3">Cukup</td>
+                    <th scope="row" class="px-3 table-separator">
+                        <span class='badge badge-success'>K</span>
+                    </th>
+                    <td scope="row" class="px-3">Kurang</td>
+                    <th scope="row" class="px-3 table-separator">
+                        <span class='badge badge-secondary'>N</span>
+                    </th>
+                    <td scope="row" class="px-3">Mata kuliah tidak diambil oleh mahasiswa.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="mt-3"></div>
     <table class="table table-sm data-table">
         <thead>
@@ -101,7 +104,14 @@
                             {{($recommendations->firstItem() + $loop->index)}}
                         </th>
                         <td class="px-3">
-                            {{$recommendation->NIM}}
+                            @php($route_prefix = NULL)
+                            @if (auth()->user()->role == 'kaprodi')
+                                @php($route_prefix = 'admin')
+                            @else
+                                @php($route_prefix = 'kjfd')
+                            @endif
+                            <a href="{{route($route_prefix.'.recommendation.show', $recommendation->NIM)}}">{{$recommendation->NIM}}</a>
+                            {{-- {{$recommendation->NIM}} --}}
                         </td>
                         <td class="pl-3 pr-4">
                             @if ($recommendation->skripsi_bidang_rekomendasi)

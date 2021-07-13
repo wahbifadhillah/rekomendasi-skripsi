@@ -64,6 +64,7 @@ class DataTrainingController extends Controller
     public function index()
     {
         $trainings = Training::query()->paginate(15);
+        $config = Configuration::latest()->first();
         $chart_data = new ChartData;
         if($trainings->isEmpty()){
             $trainings = NULL;
@@ -82,7 +83,7 @@ class DataTrainingController extends Controller
             'bidang_SIG' => Training::where('skripsi_bidang', 'Sistem Informasi Geografis')->count(),
             'bidang_TKTI' => Training::where('skripsi_bidang', 'Tata Kelola & Manajemen Sistem Informasi')->count()
         ]);
-        return view('pages.training.index', compact(['trainings', 'total', 'statistics', 'training_trainings_bidang', 'training_trainings_bidang_waktu']));
+        return view('pages.training.index', compact(['trainings', 'total', 'statistics', 'training_trainings_bidang', 'training_trainings_bidang_waktu', 'config']));
     }
 
     /**
@@ -181,6 +182,16 @@ class DataTrainingController extends Controller
             'mk_DDAP', 'mk_DIAP', 'mk_EPAP', 'mk_EASI', 'mk_MO', 'mk_MITI', 'mk_MLTI', 'mk_MP', 
             'mk_MPSI', 'mk_MRS', 'mk_MR', 'mk_PPB', 'mk_PSSI', 'mk_TKTI', 'mk_EA', 'mk_SBF', 'mk_MHP', 
             'skripsi_bidang')->get()->toArray();
+        // dd($list[0]['mk_PBD']);
+        foreach($list as $data => $value){
+            foreach($list[$data] as $mk => $grade){
+                if($list[$data][$mk] == 'N'){
+                    $list[$data][$mk] = '?';
+                }
+            }
+            
+        }
+        // dd($list);
 
         $columns = array('mk_PGI', 'mk_SIGD1', 'mk_SIGD2', 
         'mk_SIGL', 'mk_SPK', 'mk_ABD', 'mk_BDT', 'mk_DBD', 'mk_DM', 'mk_DW', 'mk_KB', 'mk_PBD', 

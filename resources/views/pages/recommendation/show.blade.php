@@ -1,6 +1,7 @@
 @extends('pages.recommendation.master')
 @section('recommendation')
     @parent
+    
     <div class="row">
         <div class="col-12">
             <div class="boxed">
@@ -11,46 +12,46 @@
                     <table class="table table-sm">
                         <thead>
                             <tr>
-                            <th scope="col">Keterangan Nilai</th>
-                            <th scope="col">Mata Kuliah</th>
+                            <th scope="col" class="pl-2 pr-3">Keterangan Nilai</th>
+                            <th scope="col" class="pl-3 pr-2 table-separator">Mata Kuliah</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                            <th scope="row">Sangat Baik</th>
-                            <td>
+                            <th scope="row" class="pl-2 pr-3">Sangat Baik</th>
+                            <td class="pl-3 pr-2 table-separator">
                                 @foreach ($ggrade['Sangat Baik'] as $mk)
                                     <span class='badge badge-secondary mx-1'>{{$mk}} </span>
                                 @endforeach
                             </td>
                             </tr>
                             <tr>
-                            <th scope="row">Baik</th>
-                            <td>
+                            <th scope="row" class="pl-2 pr-3">Baik</th>
+                            <td class="pl-3 pr-2 table-separator">
                                 @foreach ($ggrade['Baik'] as $mk)
                                     <span class='badge badge-secondary mx-1'>{{$mk}} </span>
                                 @endforeach
                             </td>
                             </tr>
                             <tr>
-                            <th scope="row">Cukup</th>
-                            <td>
+                            <th scope="row" class="pl-2 pr-3">Cukup</th>
+                            <td class="pl-3 pr-2 table-separator">
                                 @foreach ($ggrade['Cukup'] as $mk)
                                     <span class='badge badge-secondary mx-1'>{{$mk}} </span>
                                 @endforeach
                             </td>
                             </tr>
                             <tr>
-                            <th scope="row">Kurang</th>
-                            <td>
+                            <th scope="row" class="pl-2 pr-3">Kurang</th>
+                            <td class="pl-3 pr-2 table-separator">
                                 @foreach ($ggrade['Kurang'] as $mk)
                                     <span class='badge badge-secondary mx-1'>{{$mk}} </span>
                                 @endforeach
                             </td>
                             </tr>
                             <tr>
-                            <th scope="row">Tidak mengambil</th>
-                            <td>
+                            <th scope="row" class="pl-2 pr-3">Tidak mengambil</th>
+                            <td class="pl-3 pr-2 table-separator">
                                 @foreach ($ggrade['Tidak Ada'] as $mk)
                                     <span class='badge badge-secondary mx-1'>{{$mk}} </span>
                                 @endforeach

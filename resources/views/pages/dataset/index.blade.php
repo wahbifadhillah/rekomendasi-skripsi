@@ -28,7 +28,7 @@
 
 @section('dataset')
     @parent
-    <div class="d-flex justify-content-end mb-3">
+    <div class="d-flex justify-content-end mb-3 bg-light py-3">
         <div class="pr-3">
             <a href="{{route('admin.dataset.applymodel')}}" class="btn {{$use_model == 0 ? 'btn-warning':''}} {{$use_model == 1 ? 'btn-outline-warning text-dark disabled':''}} {{$use_model == 2 ? 'btn-outline-warning text-dark':''}} {{$tree ? 'disabled':''}}">
                 @if ($use_model == 1 || $use_model == 2)
@@ -38,7 +38,7 @@
                 @endif
             </a>
         </div>
-        <a href="{{route('admin.dataset.splitdata')}}" class="btn {{$split ? 'btn-primary':'btn-outline-primary'}} {{$datasets ? '':'disabled'}}">
+        <a href="{{route('admin.dataset.splitdata')}}" class="btn {{$split ? 'btn-primary':'btn-outline-primary'}} {{$datasets ? '':'disabled'}} mr-3">
             @if ($split)
                 Buat data latih dan data uji
             @else

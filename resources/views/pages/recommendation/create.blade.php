@@ -27,31 +27,33 @@
                 @enderror
             </div>
             <h5 class="mb-3">Data akademik</h5>
-            <table class="table table-sm">
-                <tbody>
-                    <tr class="statistic-table-top">
-                        <th scope="row" class="px-3">Nilai yang diijinkan</th>
-                        <td scope="row" class="px-3">
-                            <span class="badge badge-success">A</span> | 
-                            <span class="badge badge-success">B+</span> | 
-                            <span class="badge badge-success">B</span> | 
-                            <span class="badge badge-success">C+</span> | 
-                            <span class="badge badge-success">C</span> | 
-                            <span class="badge badge-success">D+</span> | 
-                            <span class="badge badge-success">D</span> | 
-                            <span class="badge badge-success">E</span> | 
-                            <span class="badge badge-success">K</span>
-                        </td>
-                        <th scope="row" class="px-3 table-separator">Nilai pada mata kuliah yang tidak diambil</th>
-                        <td scope="row" class="px-3">
-                            <span class="badge badge-warning">NULL</span> atau 
-                            <span class="badge badge-warning">Kosongkan</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="bg-light py-3">
+                <table class="table table-sm my-0">
+                    <tbody>
+                        <tr class="statistic-table-top">
+                            <th scope="row" class="px-3">Nilai yang diijinkan</th>
+                            <td scope="row" class="px-3">
+                                <span class="badge badge-success">A</span> | 
+                                <span class="badge badge-success">B+</span> | 
+                                <span class="badge badge-success">B</span> | 
+                                <span class="badge badge-success">C+</span> | 
+                                <span class="badge badge-success">C</span> | 
+                                <span class="badge badge-success">D+</span> | 
+                                <span class="badge badge-success">D</span> | 
+                                <span class="badge badge-success">E</span> | 
+                                <span class="badge badge-success">K</span>
+                            </td>
+                            <th scope="row" class="px-3 table-separator">Nilai pada mata kuliah yang tidak diambil</th>
+                            <td scope="row" class="px-3">
+                                <span class="badge badge-warning">NULL</span> atau 
+                                <span class="badge badge-warning">Kosongkan</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             {{-- Row 1 --}}
-            <div class="row mt-3">
+            <div class="row mt-4">
                 <div class="col-md-2">
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
@@ -552,7 +554,14 @@
                     </div>
                 </div>
             </div>
-
+            @if (Session::has('empty_error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {!!Session::get('empty_error')!!}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="d-flex justify-content-between mt-3 align-middle">
                 <div class="d-flex justify-content-start">
                     <small>Mendapatkan rekomendasi menggunakan model pohon keputusan <a href="{{route($route_prefix.'.decisiontree.show', $selected_tree->tree_id)}}"><span class="badge badge-primary">{{$selected_tree->tree_name}}</span></a></small>

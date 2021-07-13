@@ -256,6 +256,28 @@
                 <div class="d-flex justify-content-end">{{$datasets->onEachSide(3)->appends($_GET)->links()}}</div>
             @endif
     </div>
+    @if(!$datasets)
+    <div class="modal fade" id="pre-process" tabindex="-1" aria-labelledby="pre-processLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pre-processLabel">Dataset kosong!</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <p>Data tidak ditemukan, input <a href="{{route('admin.dataset.create')}}">dataset</a> terlebih dahulu.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{route('admin.dataset.create')}}" class="btn btn-primary">Input Dataset</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
+    
     @if ($dashboard_datasets_bidang_rekomendasi)
         
     <script>

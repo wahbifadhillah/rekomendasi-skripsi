@@ -14,8 +14,7 @@ class CreateRecommendationsTable extends Migration
     public function up()
     {
         Schema::create('recommendations', function (Blueprint $table) {
-            $table->id();
-            $table->string('NIM', 20);
+            $table->string('NIM', 16)->primary();
             $table->string('skripsi_bidang_rekomendasi', 50)->nullable();
             $table->string('mk_PGI', 4)->nullable();
             $table->string('mk_SIGD1', 4)->nullable();

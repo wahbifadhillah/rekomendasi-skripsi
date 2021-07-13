@@ -191,8 +191,9 @@ class DecisionTreeController extends Controller
             }   
         }
         if($table == 'recommendations'){
-            $data = collect($dataset);
-            Recommendation::where('id', $data['id'])->update(['skripsi_bidang_rekomendasi' => $this->getRecommendation($data, TRUE, $tree_id)]);
+            $NIM = $dataset;
+            $data = collect(Recommendation::where('NIM', $NIM)->first());
+            Recommendation::where('NIM', $NIM)->update(['skripsi_bidang_rekomendasi' => $this->getRecommendation($data, TRUE, $tree_id)]);
         }
     }
 
