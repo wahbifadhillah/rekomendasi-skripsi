@@ -28,7 +28,34 @@
 
 @section('dataset')
     @parent
+    <h5 class="mb-3">Keterangan Nilai Mata Kuliah</h5>
     <div class="d-flex justify-content-end mb-3 bg-light py-3">
+        <table class="table table-sm my-0 mr-3">
+            <tbody>
+                <tr class="statistic-table-top">
+                    <th scope="row" class="px-3">
+                        <span class='badge badge-success'>SB</span>
+                    </th>
+                    <td scope="row" class="px-3">Sangat Baik</td>
+                    <th scope="row" class="px-3 table-separator">
+                        <span class='badge badge-success'>B</span>
+                    </th>
+                    <td scope="row" class="px-3">Baik</td>
+                    <th scope="row" class="px-3 table-separator">
+                        <span class='badge badge-success'>C</span>
+                    </th>
+                    <td scope="row" class="px-3">Cukup</td>
+                    <th scope="row" class="px-3 table-separator">
+                        <span class='badge badge-success'>K</span>
+                    </th>
+                    <td scope="row" class="px-3">Kurang</td>
+                    <th scope="row" class="px-3 table-separator">
+                        <span class='badge badge-secondary'>N</span>
+                    </th>
+                    <td scope="row" class="px-3">Mata kuliah tidak diambil oleh mahasiswa.</td>
+                </tr>
+            </tbody>
+        </table>
         <div class="pr-3">
             <a href="{{route('admin.dataset.applymodel')}}" class="btn {{$use_model == 0 ? 'btn-warning':''}} {{$use_model == 1 ? 'btn-outline-warning text-dark disabled':''}} {{$use_model == 2 ? 'btn-outline-warning text-dark':''}} {{$tree ? 'disabled':''}}">
                 @if ($use_model == 1 || $use_model == 2)

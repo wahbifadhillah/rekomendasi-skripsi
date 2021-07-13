@@ -91,6 +91,21 @@ class DatasetController extends Controller
                 }
             }
             $datasets = $filter->latest()->paginate(15);
+            if($datasets->isEmpty()){
+                $datasets = NULL;
+            }else{
+                $sbr_l = Dataset::latest()->first();
+                $sbr_o = Dataset::oldest()->first();
+                if($sbr_l->skripsi_bidang_rekomendasi == NULL){
+                    $use_model = 0;
+                }
+                if($sbr_o->skripsi_bidang_rekomendasi != NULL){
+                    $use_model = 1;
+                }
+                if($sbr_l->skripsi_bidang_rekomendasi == NULL AND $sbr_o->skripsi_bidang_rekomendasi != NULL){
+                    $use_model = 2;
+                }
+            }
         }else{
             $datasets = Dataset::query()->latest()->paginate(15);
             if($datasets->isEmpty()){

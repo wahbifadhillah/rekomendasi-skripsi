@@ -19,7 +19,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">NIM</span>
                 </div>
-                <input type="text" class="form-control {{$errors->has('NIM') ? 'is-invalid':''}}" id="NIM" name="NIM" value="{{ old('NIM')}}" autocomplete="off">
+                <input type="text" class="form-control {{$errors->has('NIM') ? 'is-invalid':''}}" id="NIM" name="NIM" value="{{ old('NIM')}}" autocomplete="off" autofocus>
                 @error('NIM')
                 <div class="invalid-feedback">
                     {{ $message }}

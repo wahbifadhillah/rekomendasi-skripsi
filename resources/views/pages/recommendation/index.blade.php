@@ -1,7 +1,24 @@
 @extends('pages.recommendation.master')
 @section('recommendation')
     @parent
-    
+    @section('search')
+    @parent
+    {{-- {{dd(route(auth()->user()->role == 'kaprodi' ? 'admin.recommendation.index':'kjfd.recommendation.index'))}} --}}
+    @if ($recommendations)    
+    <div class="row">
+        <div class="col-12">
+            <form action="{{ route(auth()->user()->role == 'kaprodi' ? 'admin.recommendation.index':'kjfd.recommendation.index')}}" method="GET">
+                <div class="input-group mb-4">
+                    <input type="search" id="search" name="search" class="form-control" placeholder="Cari dengan NIM" aria-label="Cari dengan NIM" aria-describedby="button-addon2" value="{{request()->query('search')}}" autocomplete="off">
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-primary" type="button"  value="Cari">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
+    @endsection
     <h5 class="mb-3">Keterangan Nilai Mata Kuliah</h5>
     <div class="bg-light py-3">
         <table class="table table-sm my-0">
@@ -97,6 +114,12 @@
                     }
                 }
             @endphp
+            @php($route_prefix = NULL)
+            @if (auth()->user()->role == 'kaprodi')
+                @php($route_prefix = 'admin')
+            @else
+                @php($route_prefix = 'kjfd')
+            @endif
             @if ($recommendations)
                 @foreach ($recommendations as $recommendation)
                     <tr>
@@ -104,14 +127,7 @@
                             {{($recommendations->firstItem() + $loop->index)}}
                         </th>
                         <td class="px-3">
-                            @php($route_prefix = NULL)
-                            @if (auth()->user()->role == 'kaprodi')
-                                @php($route_prefix = 'admin')
-                            @else
-                                @php($route_prefix = 'kjfd')
-                            @endif
                             <a href="{{route($route_prefix.'.recommendation.show', $recommendation->NIM)}}">{{$recommendation->NIM}}</a>
-                            {{-- {{$recommendation->NIM}} --}}
                         </td>
                         <td class="pl-3 pr-4">
                             @if ($recommendation->skripsi_bidang_rekomendasi)

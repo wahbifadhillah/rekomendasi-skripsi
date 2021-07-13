@@ -1,7 +1,6 @@
 @extends('pages.recommendation.master')
 @section('recommendation')
     @parent
-    
     <div class="row">
         <div class="col-12">
             <div class="boxed">

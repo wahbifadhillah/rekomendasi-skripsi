@@ -21,11 +21,20 @@ class RecommendationController extends Controller
         $this->middleware('role:kaprodi,kjfd');
     }
     
-    public function index()
+    public function index(Request $request)
     {
-        $recommendations = Recommendation::latest()->paginate(15);
-        if($recommendations->isEmpty()){
-            $recommendations = NULL;
+        // $recommendations = Recommendation::latest()->paginate(15);
+        if ($request->filled('search')) {
+            $search = Recommendation::query();
+            if($request->search != ''){
+                $search->where('NIM', 'LIKE', $request->search.'%');
+            }
+            $recommendations = $search->latest()->paginate(15);
+        }else{
+            $recommendations = Recommendation::query()->latest()->paginate(15);
+            if($recommendations->isEmpty()){
+                $recommendations = NULL;
+            }
         }
         return view('pages.recommendation.index', compact(['recommendations']));
     }

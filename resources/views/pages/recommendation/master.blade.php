@@ -8,7 +8,7 @@
 @endsection
 @section('content_body')
     @parent
-    @yield('filters')
+    @yield('search')
     @php($route_prefix = NULL)
     @if (auth()->user()->role == 'kaprodi')
         @php($route_prefix = 'admin')
@@ -25,7 +25,7 @@
                     @php($rec_id = 0)
                 @else    
                     @if (is_numeric(last(request()->segments())))
-                        @php($rec_id = $recommendation->id)
+                        @php($rec_id = $recommendation->NIM)
                     @else
                         @php($rec_id = 0)
                     @endif
