@@ -34,12 +34,28 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    // public function __construct()
+    // {
+    //     $this->middleware('guest')->except('logout');
+    // }
+
+    public function login()
     {
-        $this->middleware('guest')->except('logout');
+        if (auth()->check()){
+            // return 'login';
+            if (auth()->user()->role == 'kaprodi') {
+                return redirect()->route('admin.dashboard.index');
+            }else if(auth()->user()->role == 'kjfd'){
+                return redirect()->route('kjfd.dashboard.index');
+            }
+        }else{
+            // return 'not login';
+            return view('auth.login');
+        }
+        // return 'neither';
     }
 
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {  
         $inputVal = $request->all();
    
@@ -59,4 +75,8 @@ class LoginController extends Controller
                 ->with('error','Email & Password salah.');
         }     
     }
+    public function logout() {
+        auth()->logout();
+        return redirect('login');
+      }
 }
