@@ -115,18 +115,22 @@ class DashboardController extends Controller
                     $sbr_l = Dataset::latest()->first();
                     $sbr_o = Dataset::oldest()->first();
                     if($sbr_l->skripsi_bidang_rekomendasi == NULL){
+                        $dashboard_datasets_bidang_rekomendasi_sebaran = NULL;
                         $dashboard_datasets_bidang_rekomendasi = NULL;
                         $dashboard_datasets_bidang_rekomendasi_waktu = NULL;
                     }
                     if($sbr_o->skripsi_bidang_rekomendasi != NULL){
+                        $dashboard_datasets_bidang_rekomendasi_sebaran = $chart_data->getChartRekomendasi($cfilter->get());
                         $dashboard_datasets_bidang_rekomendasi = $chart_data->getChartBidangXRekomendasi($cfilter->get());
                         $dashboard_datasets_bidang_rekomendasi_waktu = $chart_data->getChartBidangXRekomendasiWaktu($cfilter->get());
                     }
                     if($sbr_l->skripsi_bidang_rekomendasi == NULL AND $sbr_o->skripsi_bidang_rekomendasi != NULL){
+                        $dashboard_datasets_bidang_rekomendasi_sebaran = NULL;
                         $dashboard_datasets_bidang_rekomendasi = NULL;
                         $dashboard_datasets_bidang_rekomendasi_waktu = NULL;
                     }
                 }else{
+                    $dashboard_datasets_bidang_rekomendasi_sebaran = NULL;
                     $dashboard_datasets_bidang_rekomendasi = NULL;
                     $dashboard_datasets_bidang_rekomendasi_waktu = NULL;
                 }
@@ -135,6 +139,7 @@ class DashboardController extends Controller
             $datasets = Dataset::query()->latest()->paginate(15);
             if($datasets->isEmpty()){
                 $datasets = NULL;
+                $dashboard_datasets_bidang_rekomendasi_sebaran = NULL;
                 $dashboard_datasets_bidang_rekomendasi = NULL;
                 $dashboard_datasets_bidang_rekomendasi_waktu = NULL;
             }else{
@@ -142,16 +147,19 @@ class DashboardController extends Controller
                 $sbr_o = Dataset::oldest()->first();
                 if($sbr_l->skripsi_bidang_rekomendasi == NULL){
                     $use_model = 0;
+                    $dashboard_datasets_bidang_rekomendasi_sebaran = NULL;
                     $dashboard_datasets_bidang_rekomendasi = NULL;
                     $dashboard_datasets_bidang_rekomendasi_waktu = NULL;
                 }
                 if($sbr_o->skripsi_bidang_rekomendasi != NULL){
                     $use_model = 1;
+                    $dashboard_datasets_bidang_rekomendasi_sebaran = $chart_data->getChartRekomendasi(collect(Dataset::query()->get()));
                     $dashboard_datasets_bidang_rekomendasi = $chart_data->getChartBidangXRekomendasi(collect(Dataset::query()->get()));
                     $dashboard_datasets_bidang_rekomendasi_waktu = $chart_data->getChartBidangXRekomendasiWaktu(collect(Dataset::query()->get()));
                 }
                 if($sbr_l->skripsi_bidang_rekomendasi == NULL AND $sbr_o->skripsi_bidang_rekomendasi != NULL){
                     $use_model = 2;
+                    $dashboard_datasets_bidang_rekomendasi_sebaran = NULL;
                     $dashboard_datasets_bidang_rekomendasi = NULL;
                     $dashboard_datasets_bidang_rekomendasi_waktu = NULL;
                 }
@@ -172,7 +180,7 @@ class DashboardController extends Controller
             'testing' => Testing::count()
         ]);
 
-        return view('pages.dashboard.index', compact(['datasets', 'filters', 'total', 'tree_accuracy', 'statistics', 'use_model', 'dashboard_datasets_bidang_rekomendasi', 'dashboard_datasets_bidang_rekomendasi_waktu']));
+        return view('pages.dashboard.index', compact(['datasets', 'filters', 'total', 'tree_accuracy', 'statistics', 'use_model', 'dashboard_datasets_bidang_rekomendasi_sebaran', 'dashboard_datasets_bidang_rekomendasi', 'dashboard_datasets_bidang_rekomendasi_waktu']));
     }
 
     /**

@@ -29,7 +29,25 @@
 @section('dashboard')
     @parent
     <div class="row equal-cols mb-3">
-        <div class="col-5">
+        <div class="col-6">
+            <div class="boxed">
+                <h5 class="mb-3">Sebaran bidang rekomendasi</h5>
+                {{-- {{dd($dashboard_datasets_bidang_rekomendasi_sebaran)}} --}}
+                <div class="graph">
+                    @if ($dashboard_datasets_bidang_rekomendasi_sebaran)    
+                        <canvas id="dashboard_datasets_bidang_rekomendasi_sebaran"></canvas>
+                        <p class="text-center text-muted">Bidang Skripsi</p>
+                    @else
+                        @if(auth()->user()->role == 'kaprodi')
+                            <small>Aplikasikan <a href="{{route('admin.dataset.index')}}">model pada dataset</a> terlebih dahulu untuk melihat chart.</small>
+                        @else
+                            <small>Model belum diaplikasikan pada dataset oleh admin.</small>
+                        @endif
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
             <div class="boxed">
                 <h5 class="mb-3">Rekomendasi berdasarkan Bidang Skripsi</h5>
                 <div class="graph">
@@ -47,7 +65,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-5">
+    </div>
+    <div class="row equal-cols mb-3">
+        <div class="col-10">
             <div class="boxed">
                 <h5 class="mb-3">Lama Skripsi berdasarkan Rekomendasi</h5>
                 <div class="graph">
@@ -282,16 +302,38 @@
         
     <script>
         // Load Data
+        var bidang_rekomendasi_sebaran = JSON.parse(`<?php echo $dashboard_datasets_bidang_rekomendasi_sebaran; ?>`);
         var bidang_rekomendasi = JSON.parse(`<?php echo $dashboard_datasets_bidang_rekomendasi; ?>`);
         var bidang_rekomendasi_waktu = JSON.parse(`<?php echo $dashboard_datasets_bidang_rekomendasi_waktu; ?>`);
-
+        
 
         // Select Canvas
+        var chart_bidang_rekomendasi_sebaran = document.getElementById('dashboard_datasets_bidang_rekomendasi_sebaran');
         var chart_bidang_rekomendasi = document.getElementById('dashboard_datasets_bidang_rekomendasi');
         var chart_bidang_rekomendasi_waktu = document.getElementById('dashboard_datasets_bidang_rekomendasi_waktu');
 
 
         // Chart Data
+        var data_bidang_rekomendasi_sebaran = {
+            datasets: [{
+                label: false,
+                backgroundColor: [
+                    'rgba(255, 159, 64, 0.3)',
+                    'rgba(255, 99, 132, 0.3)',
+                    'rgba(75, 192, 192, 0.3)',
+                    'rgba(54, 162, 235, 0.3)',
+                ],
+                borderColor: [
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 99, 132)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                ],
+                borderWidth: 1,
+                data: bidang_rekomendasi_sebaran
+            }]
+        };
+        
         var data_bidang_rekomendasi = {
             datasets: [{
                 label: 'Rekomendasi MDI',
@@ -338,6 +380,29 @@
 
 
         // Chart
+        var bar_bidang_rekomendasi_sebaran = new Chart(chart_bidang_rekomendasi_sebaran, {
+            type: 'bar',
+            data: data_bidang_rekomendasi_sebaran,
+            options: {
+                barValueSpacing: 20,
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                       display: false
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                        min: 0,
+                        }
+                    }]
+                }
+            }
+        });
+        console.log(bar_bidang_rekomendasi_sebaran);
+
         var bar_bidang_rekomendasi = new Chart(chart_bidang_rekomendasi, {
             type: 'bar',
             data: data_bidang_rekomendasi,

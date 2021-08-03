@@ -512,7 +512,7 @@ class DataTrainingController extends Controller
         // WEKA CLI Configuration
         $java_cmd = "java -cp ";
         $classifiers="weka.classifiers.trees.J48 ";
-        $classifiers_options="-C 0.25 -M 2 -t ";
+        $classifiers_options="-C 0.5 -M 2 -t ";
         
         $convert_csv_to_arff = $java_cmd.$weka_class_path.$dir_separator.'weka.core.converters.CSVLoader'.$dir_separator.' '.$data.' > '.$data_arff.' '.$legal_mk.' '.$legal_class;
         // java -cp /path/to/weka.jar weka.core.converters.CSVLoader filename.csv > filename.arff
