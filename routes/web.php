@@ -16,16 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/login');
 });
-// Auth::routes();
-// Route::get('/login', function () {
-//     if (auth()->check()){
-//         if (auth()->user()->role == 'kaprodi') {
-//             return redirect()->route('admin.dashboard.index');
-//         }else if(auth()->user()->role == 'kjfd'){
-//             return redirect()->route('kjfd.dashboard.index');
-//         }
-//     }
-// });
 Route::get('/login', 'Auth\LoginController@login')->name('login');
 Route::post('/login', 'Auth\LoginController@authenticate');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
