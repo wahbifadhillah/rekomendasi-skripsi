@@ -107,8 +107,12 @@ class DashboardController extends Controller
             }
             if($request->filled('lama_pengerjaan')) {
                 if($request->lama_pengerjaan != 'semua_lama_pengerjaan'){
-                    $filter->havingRaw('FLOOR((DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) / 30)) ='.$request->lama_pengerjaan);
-                    $cfilter->havingRaw('FLOOR((DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) / 30)) ='.$request->lama_pengerjaan);
+                    // sql
+                    // $filter->havingRaw('FLOOR((DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) / 30)) ='.$request->lama_pengerjaan);
+                    // $cfilter->havingRaw('FLOOR((DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) / 30)) ='.$request->lama_pengerjaan);
+                    // pgsql
+                    $filter->whereRaw('FLOOR((skripsi_tanggal_semhas - skripsi_tanggal_proposal) / 30) ='.$request->lama_pengerjaan);
+                    $cfilter->whereRaw('FLOOR((skripsi_tanggal_semhas - skripsi_tanggal_proposal) / 30) ='.$request->lama_pengerjaan);
                 }
             }
                 if(!Dataset::get()->isEmpty()){

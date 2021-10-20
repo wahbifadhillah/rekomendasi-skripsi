@@ -83,10 +83,16 @@ class DatasetController extends Controller
             if($request->filled('status_skripsi')) {
                 if($request->status_skripsi != 'semua_status_skripsi'){
                     if($request->status_skripsi == 'tepat_waktu'){
-                        $filter->havingRaw('DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) <= 180');
+                        // sql
+                        // $filter->havingRaw('DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) <= 180');
+                        // pgsql
+                        $filter->whereRaw('skripsi_tanggal_semhas - skripsi_tanggal_proposal <= 180');
                     }
                     if($request->status_skripsi == 'tidak_tepat_waktu'){
-                        $filter->havingRaw('DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) > 180');
+                        // sql
+                        // $filter->havingRaw('DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) > 180');
+                        // pgsql
+                        $filter->whereRaw('skripsi_tanggal_semhas - skripsi_tanggal_proposal > 180');
                     }
                 }
             }
@@ -228,8 +234,13 @@ class DatasetController extends Controller
     }
 
     public function splitData(){
-        $trainings = Dataset::havingRaw('DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) <= 180')->get();
-        $testings = Dataset::havingRaw('DATEDIFF(skripsi_tanggal_semhas, skripsi_tanggal_proposal) > 180')->get();
+        // mysql
+        // $trainings = Dataset::havingRaw('DATEDIFF("day", skripsi_tanggal_semhas, skripsi_tanggal_proposal) <= 180')->get();
+        // $testings = Dataset::havingRaw('DATEDIFF("day", skripsi_tanggal_semhas, skripsi_tanggal_proposal) > 180')->get();
+        // psql
+        $trainings = Dataset::whereRaw('skripsi_tanggal_semhas - skripsi_tanggal_proposal <= 180')->get();
+        $testings = Dataset::whereRaw('skripsi_tanggal_semhas - skripsi_tanggal_proposal > 180')->get();
+
         DB::table('trainings')->truncate();
         foreach($trainings as $row => $key){
             $training = Training::create([

@@ -461,9 +461,6 @@ class DataTrainingController extends Controller
                 'node_parent' => $data[$row]['node_db_parent_id'],
                 'node_name' => $data[$row]['node_name_slicer'],
                 'node_value' => $data[$row]['node_label_slicer'],
-                // 'node_rule' => $data[$row]
-                // 'node_level' => NULL,
-                // 'node_leaf_class' => NULL,
                 'node_leaf_purity' => $purity
             ]);
         }
