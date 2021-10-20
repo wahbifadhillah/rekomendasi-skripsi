@@ -16,3 +16,6 @@ Secara umum sistem yang dikembangkan dapat memberikan rekomendasi bidang skripsi
 - DBMS PostgresSql
 - Vanilla Javascript
 - PHP Laravel
+
+## Preview
+![test](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dapatkan%20rekomendasi.png?raw=true)
