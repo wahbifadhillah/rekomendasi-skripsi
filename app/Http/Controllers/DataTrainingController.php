@@ -451,26 +451,23 @@ class DataTrainingController extends Controller
     {
         
         foreach($data as $row => $key) {
+            $node = new Node;
             $purity = NULL;
             if($data[$row]['node_purity_slicer'] != ''){
                 $purity = $data[$row]['node_purity_slicer'];
             }
-            // $node->node_id = $data[$row]['node_db_id'];
-            // $node->tree_id = $tree_id;
-            // $node->node_parent = $data[$row]['node_db_parent_id'];
-            // $node->node_name = $data[$row]['node_name_slicer'];
-            // $node->node_value = $data[$row]['node_label_slicer'];
-            // $node->node_leaf_purity = $purity;
-            // $node->save();
-            $node = Node::create([
+            $node = Node::insert([
                 'node_id' => $data[$row]['node_db_id'],
                 'tree_id' => $tree_id,
                 'node_parent' => $data[$row]['node_db_parent_id'],
                 'node_name' => $data[$row]['node_name_slicer'],
                 'node_value' => $data[$row]['node_label_slicer'],
-                'node_leaf_purity' => $purity
+                'node_leaf_purity' => $purity,
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
+
         $latest_parent_node = Node::latest()->where('node_name', 'N0')->first();
         dd($latest_parent_node->node_id);
         $tree = DecisionTree::latest()->first();
