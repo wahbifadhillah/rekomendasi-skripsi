@@ -1,4 +1,4 @@
-<p align="center">Pengembangan Sistem Informasi Rekomendasi Pemilihan Bidang Skripsi Berdasarkan Nilai Akademik Menggunakan Algoritme Decision Tree C4.5</p>
+<h1 align="center">Pengembangan Sistem Informasi Rekomendasi Pemilihan Bidang Skripsi Berdasarkan Nilai Akademik Menggunakan Algoritme Decision Tree C4.5</h1>
 
 ## About This App
 
@@ -22,6 +22,6 @@ Dalam penelitian ini, secara umum sistem yang dikembangkan dapat memberikan reko
 
 ## Demo
 
-Akses sistem dapat dilakukan melalui [link](https://laravel.com/) dengan informasi akses sebagai berikut:
+Akses sistem dapat dilakukan melalui [link](http://fierce-anchorage-86085.herokuapp.com/) dengan informasi akses sebagai berikut:
 - email: kjfd@test.com
 - password: kjfddemo
