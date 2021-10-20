@@ -5,7 +5,7 @@
 /storage/app/csv
 /storage/app/model
 /storage/app/temp
-
+/database/seeds/UserSeeder.php
 /vendor
 .env
 .env.backup

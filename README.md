@@ -11,17 +11,12 @@ Dalam penelitian ini, secara umum sistem yang dikembangkan dapat memberikan reko
 ### Fitur Utama
 - Data Mining menggunakan algoritme Decision Tree C4.5 dengan library Java Weka.
 - Import data mahasiswa (.csv) menggunakan [Laravel-Excel](https://github.com/Maatwebsite/Laravel-Excel).
-- Penyajian visualisasi data dashboard menggunakan[Chart.js](https://github.com/chartjs/Chart.js).
+- Penyajian visualisasi data dashboard menggunakan [Chart.js](https://github.com/chartjs/Chart.js).
 - Visualisasi model Decision Tree menggunakan [Viz.js](https://github.com/mdaines/viz.js).
 - Interaksi svg model Decision Tree menggunakan [SVG.js](https://github.com/svgdotjs).
 
 ### Tools Pengembangan
 - SASS
 - DBMS PostgresSql
-- Javascript
-
-## Demo
-
-Akses sistem dapat dilakukan melalui [link](http://fierce-anchorage-86085.herokuapp.com/) dengan informasi akses sebagai berikut:
-- email: kjfd@test.com
-- password: kjfddemo
+- Vanilla Javascript
+- PHP Laravel

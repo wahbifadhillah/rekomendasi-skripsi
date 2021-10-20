@@ -447,13 +447,6 @@ class DataTrainingController extends Controller
         return $tree_id->tree_id;
     }
 
-    public function updateTreeNodeID(){
-        $latest_parent_node = Node::latest()->where('node_name', 'N0')->first();
-        $tree = DecisionTree::latest()->first();
-        $tree->node_id = $latest_parent_node->node_id;
-        $tree->save();
-    }
-
     public function saveTreeNodes($tree_id, $data)
     {
         $node = new Node;
@@ -473,7 +466,10 @@ class DataTrainingController extends Controller
                 'updated_at' => now()
             ]);
         }
-        $this->updateTreeNodeID();
+        $tree = DecisionTree::latest()->first();
+        $latest_parent_node = Node::latest()->where('node_name', 'N0')->first();
+        $tree->node_id = $latest_parent_node->node_id;
+        $tree->save();
     }
 
     public function trainData(){
@@ -533,7 +529,6 @@ class DataTrainingController extends Controller
         
         // GET NODE ARRAY RULES AND CONVERT TO COLLECTION //
         $data = $this->getNodeArray($node_data_output);
-        dd($training_tree_data_output);
 
         // STORE TREE AND NODES DATA
         $nodes = $this->saveTreeNodes($this->saveTree($training_tree_data_output, $filename, $data, $tree_graph), $data);
