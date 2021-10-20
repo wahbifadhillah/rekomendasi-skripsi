@@ -455,7 +455,7 @@ class DataTrainingController extends Controller
             if($data[$row]['node_purity_slicer'] != ''){
                 $purity = $data[$row]['node_purity_slicer'];
             }
-            Node::create([
+            $node->create([
                 'node_id' => $data[$row]['node_db_id'],
                 'tree_id' => $tree_id,
                 'node_parent' => $data[$row]['node_db_parent_id'],
@@ -466,6 +466,7 @@ class DataTrainingController extends Controller
         }
         $tree = DecisionTree::latest()->first();
         $latest_parent_node = Node::latest()->where('node_name', 'N0')->first();
+        dd($latest_parent_node);
         $tree->node_id = $latest_parent_node->node_id;
         $tree->save();
     }
