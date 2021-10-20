@@ -462,7 +462,7 @@ class DataTrainingController extends Controller
             // $node->node_value = $data[$row]['node_label_slicer'];
             // $node->node_leaf_purity = $purity;
             // $node->save();
-            Node::create([
+            $node = Node::create([
                 'node_id' => $data[$row]['node_db_id'],
                 'tree_id' => $tree_id,
                 'node_parent' => $data[$row]['node_db_parent_id'],
@@ -471,9 +471,8 @@ class DataTrainingController extends Controller
                 'node_leaf_purity' => $purity
             ]);
         }
-        $node = new Node;
-        $latest_parent_node = $node->latest()->where('node_name', 'N0')->first();
-        dd($latest_parent_node);
+        $latest_parent_node = Node::latest()->where('node_name', 'N0')->first();
+        dd($latest_parent_node->node_id);
         $tree = DecisionTree::latest()->first();
         $tree->node_id = $latest_parent_node->node_id;
         $tree->save();
