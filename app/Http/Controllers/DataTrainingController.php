@@ -455,7 +455,7 @@ class DataTrainingController extends Controller
             if($data[$row]['node_purity_slicer'] != ''){
                 $purity = $data[$row]['node_purity_slicer'];
             }
-            $node = Node::create([
+            Node::create([
                 'node_id' => $data[$row]['node_db_id'],
                 'tree_id' => $tree_id,
                 'node_parent' => $data[$row]['node_db_parent_id'],
