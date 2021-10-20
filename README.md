@@ -23,7 +23,7 @@ Secara umum sistem yang dikembangkan dapat memberikan rekomendasi bidang skripsi
 ### Halaman Dataset
 ![dataset-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dataset.png?raw=true)
 ### Halaman Input Dataset
-![dataset-input-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dataset-input.png.png?raw=true)
+![dataset-input-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dataset-input.png?raw=true)
 ### Halaman Data Latih
 ![train-data-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/data%20latih.png?raw=true)
 ### Halaman Data Uji
