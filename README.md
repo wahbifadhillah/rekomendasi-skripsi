@@ -1,61 +1,27 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center">Pengembangan Sistem Informasi Rekomendasi Pemilihan Bidang Skripsi Berdasarkan Nilai Akademik Menggunakan Algoritme Decision Tree C4.5</p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## About This App
 
-## About Laravel
+Berdasarkan data skripsi mahasiswa prodi SI angkatan 2014-2015 yang dihimpun dari PSIK didapatkan 42 persen mahasiswa tidak dapat menyelesaikan skripsi dengan tepat waktu. Saat ini prodi SI belum memiliki rangkaian mata kuliah yang mengacu pada keminatan khusus, tetapi berdasarkan data yang didapatkan dari PSIK FILKOM terdapat data bidang skripsi yang mengarahkan mahasiswa pada bidang keahlian tertentu. Karena belum adanya serangkaian mata kuliah yang mengacu pada keminatan khusus ini, maka perlu untuk dicari tahu apakah terdapat mata kuliah yang memiliki hubungan dengan bidang skripsi serta kesesuaianya dengan lama pengerjaan skripsi. Sehingga dibutuhkan sistem yang dapat menemukan pola data tersebut. Salah satu solusinya adalah menggunakan algoritme klasifikasi data mining. Pada penelitian ini akan mengimplementasikan sistem rekomendasi bidang skripsi berbasis web menggunakan Weka untuk memberikan rekomendasi bidang skripsi kepada mehasiswa melalui Ketua Program Studi Sistem Informasi atau Koordinator Kelompok Jabatan Fungsional Dosen masing-masing bidang pada Fakultas Ilmu Komputer Universitas Brawijaya. Terdapat 4 kelas rekomendasi bidang skripsi yaitu Manajemen Data dan Informasi (1), Pengembangan Sistem Informasi (2), Sistem Informasi Geografis (3), dan Tata Kelola dan Manajemen Sistem Informasi (4). Klasifikasi dilakukan menggunakan algoritme Decision Tree C4.5. Dataset yang digunakan adalah gabungan antara data skripsi mahasiswa dan data akademik mahasiswa yang disediakan oleh kaprodi SI. Dataset yang digunakan untuk melakukan proses training adalah data dengan rentang waktu tanggal pengajuan proposal hingga tanggal semhas adalah kurang dari sama dengan 180 hari, sedangkan data yang digunakan untuk proses testing adalah data dengan rentang waktu lebih dari 180 hari. Hasil dari penelitian ini adalah sebuah sistem yang dapat memberikan rekomendasi bidang skripsi dan dashboard untuk mengetahui pola data skripsi yang ada pada prodi SI. Sistem di implementasi menggunakan Laravel sedangkan implementasi proses mining menggunakan Weka.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Deskripsi Umum Sistem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Dalam penelitian ini, secara umum sistem yang dikembangkan dapat memberikan rekomendasi bidang skripsi dengan menggunakan aturan klasifikasi yang didapatkan dari proses mining menggunakan algoritme C4.5. Visualisasi data disajikan kepada pengguna sistem diantaranya, Ketua Program Studi Sistem Informasi dan Ketua Kelompok Jabatan Fungsional  Dosen (KJFD) masing-masing bidang keminatan. Proses data mining untuk memberikan rekomendasi dilakukan menggunakan data latih dan data uji yang terdapat dalam database yang dimasukkan oleh pengguna Ketua Program Studi Sistem Informasi, kemudian hasil dari proses mining data tersebut akan digunakan sebagai aturan klasifikasi untuk memberikan rekomendasi berupa bidang skripsi.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Fitur Utama
+- Data Mining menggunakan algoritme Decision Tree C4.5 dengan library Java Weka.
+- Import data mahasiswa (.csv) menggunakan [Laravel-Excel](https://github.com/Maatwebsite/Laravel-Excel).
+- Penyajian visualisasi data dashboard menggunakan[Chart.js](https://github.com/chartjs/Chart.js).
+- Visualisasi model Decision Tree menggunakan [Viz.js](https://github.com/mdaines/viz.js).
+- Interaksi svg model Decision Tree menggunakan [SVG.js](https://github.com/svgdotjs).
 
-## Learning Laravel
+### Tools Pengembangan
+- SASS
+- DBMS PostgresSql
+- Javascript
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Demo
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Akses sistem dapat dilakukan melalui [link](https://laravel.com/) dengan informasi akses sebagai berikut:
+- email: kjfd@test.com
+- password: kjfddemo

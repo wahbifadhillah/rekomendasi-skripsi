@@ -401,7 +401,6 @@
                 }
             }
         });
-        console.log(bar_bidang_rekomendasi_sebaran);
 
         var bar_bidang_rekomendasi = new Chart(chart_bidang_rekomendasi, {
             type: 'bar',
