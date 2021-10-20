@@ -18,4 +18,17 @@ Secara umum sistem yang dikembangkan dapat memberikan rekomendasi bidang skripsi
 - PHP Laravel
 
 ## Preview
-![test](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dapatkan%20rekomendasi.png?raw=true)
+### Halaman Dashboard
+![dashboard-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dashboard.png?raw=true)
+### Halaman Dataset
+![dataset-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dataset.png?raw=true)
+### Halaman Input Dataset
+![dataset-input-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dataset-input.png.png?raw=true)
+### Halaman Data Latih
+![train-data-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/data%20latih.png?raw=true)
+### Halaman Data Uji
+![testi-data-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/data%20uji.png?raw=true)
+### Halaman Model Pohon Keputusan
+![decision-tree-model-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/model%20pohon%20keputusan.png?raw=true)
+### Halaman Dapatkan Rekomendasi
+![get-recommendation-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dapatkan%20rekomendasi.png?raw=true)
