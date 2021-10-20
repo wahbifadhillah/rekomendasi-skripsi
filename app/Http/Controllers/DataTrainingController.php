@@ -533,7 +533,7 @@ class DataTrainingController extends Controller
         
         // GET NODE ARRAY RULES AND CONVERT TO COLLECTION //
         $data = $this->getNodeArray($node_data_output);
-        dd($data);
+        dd($training_tree_data_output);
 
         // STORE TREE AND NODES DATA
         $nodes = $this->saveTreeNodes($this->saveTree($training_tree_data_output, $filename, $data, $tree_graph), $data);
