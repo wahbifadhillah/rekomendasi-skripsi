@@ -415,8 +415,8 @@ class DataTrainingController extends Controller
     public function saveTree($tree_data_output, $tree_name, $data, $tree_graph)
     {
         $rules = $this->getTreeRules($data);
-        $tree_leaves= NULL;
-        $tree_size= NULL;
+        $tree_leaves= 0;
+        $tree_size= 0;
         $c_training = DB::table('trainings')->count();;
         $c_testing = DB::table('testings')->count();;
         
