@@ -447,16 +447,22 @@ class DataTrainingController extends Controller
         return $tree_id->tree_id;
     }
 
+    public function updateTreeNodeID(){
+        $latest_parent_node = Node::latest()->where('node_name', 'N0')->first();
+        $tree = DecisionTree::latest()->first();
+        $tree->node_id = $latest_parent_node->node_id;
+        $tree->save();
+    }
+
     public function saveTreeNodes($tree_id, $data)
     {
-        
+        $node = new Node;
         foreach($data as $row => $key) {
-            $node = new Node;
             $purity = NULL;
             if($data[$row]['node_purity_slicer'] != ''){
                 $purity = $data[$row]['node_purity_slicer'];
             }
-            $node = Node::insert([
+            $node = Node::create([
                 'node_id' => $data[$row]['node_db_id'],
                 'tree_id' => $tree_id,
                 'node_parent' => $data[$row]['node_db_parent_id'],
@@ -467,12 +473,7 @@ class DataTrainingController extends Controller
                 'updated_at' => now()
             ]);
         }
-
-        $latest_parent_node = Node::latest()->where('node_name', 'N0')->first();
-        dd($latest_parent_node->node_id);
-        $tree = DecisionTree::latest()->first();
-        $tree->node_id = $latest_parent_node->node_id;
-        $tree->save();
+        $this->updateTreeNodeID();
     }
 
     public function trainData(){
