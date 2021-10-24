@@ -1,34 +1,34 @@
-<h1 align="center">Pengembangan Sistem Informasi Rekomendasi Pemilihan Bidang Skripsi Berdasarkan Nilai Akademik Menggunakan Algoritme Decision Tree C4.5</h1>
+<h1 align="center">Information System Development of Thesis Topic Recommendations Based on Academic Course Grade Using The Decision Tree C4.5 Algorithm</h1>
 
 ## About This App
 
-Secara umum sistem yang dikembangkan dapat memberikan rekomendasi bidang skripsi dengan menggunakan aturan klasifikasi yang didapatkan dari proses mining menggunakan algoritme C4.5. Visualisasi data disajikan kepada pengguna sistem diantaranya, Ketua Program Studi Sistem Informasi dan Ketua Kelompok Jabatan Fungsional  Dosen (KJFD) masing-masing bidang keminatan. Proses data mining untuk memberikan rekomendasi dilakukan menggunakan data latih dan data uji yang terdapat dalam database yang dimasukkan oleh pengguna Ketua Program Studi Sistem Informasi, kemudian hasil dari proses mining data tersebut akan digunakan sebagai aturan klasifikasi untuk memberikan rekomendasi berupa bidang skripsi.
+A web-based system that can provide thesis topic recommendations and dashboards to discover patterns of thesis data in the information system study program.
 
 ### Key Features
-- Data Mining menggunakan algoritme Decision Tree C4.5 dengan library Java Weka.
-- Import data mahasiswa (.csv) menggunakan [Laravel-Excel](https://github.com/Maatwebsite/Laravel-Excel).
-- Penyajian visualisasi data dashboard menggunakan [Chart.js](https://github.com/chartjs/Chart.js).
-- Visualisasi model Decision Tree menggunakan [Viz.js](https://github.com/mdaines/viz.js).
-- Interaksi svg model Decision Tree menggunakan [SVG.js](https://github.com/svgdotjs).
+- Data Mining process using Decision Tree C4.5 Algorithm by porting [Java Weka](https://www.cs.waikato.ac.nz/ml/weka/) to the system.
+- Import student academic data (.csv) with [Laravel-Excel](https://github.com/Maatwebsite/Laravel-Excel).
+- Presenting data visualization to dashboard using [Chart.js](https://github.com/chartjs/Chart.js).
+- Visualizing graphviz model to the system with [Viz.js](https://github.com/mdaines/viz.js).
+- SVG Model Interaction using [SVG.js](https://github.com/svgdotjs).
 
-### Technology
+### Key Technology
 - SASS
 - DBMS PostgresSql
 - Vanilla Javascript
 - PHP Laravel
 
 ## Preview
-### Halaman Dashboard
+### Dashboard Page
 ![dashboard-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dashboard.png?raw=true)
-### Halaman Dataset
+### Dataset Page
 ![dataset-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dataset.png?raw=true)
-### Halaman Input Dataset
+### Input Dataset Page
 ![dataset-input-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dataset-input.png?raw=true)
-### Halaman Data Latih
+### Training Data Page
 ![train-data-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/data%20latih.png?raw=true)
-### Halaman Data Uji
+### Testing Data Page
 ![testi-data-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/data%20uji.png?raw=true)
-### Halaman Model Pohon Keputusan
+### Decision Tree Model Page
 ![decision-tree-model-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/model%20pohon%20keputusan.png?raw=true)
-### Halaman Dapatkan Rekomendasi
+### Get Recommendation Page
 ![get-recommendation-preview](https://github.com/wahbifadhillah/rekomendasi-skripsi/blob/master/github/dapatkan%20rekomendasi.png?raw=true)
