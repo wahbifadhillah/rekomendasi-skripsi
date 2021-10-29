@@ -5,17 +5,26 @@
 A web-based system that can provide thesis topic recommendations and dashboards to discover patterns of thesis data in the information system study program.
 
 ### Key Features
-- Data Mining process using Decision Tree C4.5 Algorithm by porting [Java Weka](https://www.cs.waikato.ac.nz/ml/weka/) to the system.
-- Import student academic data (.csv) with [Laravel-Excel](https://github.com/Maatwebsite/Laravel-Excel).
-- Presenting data visualization to dashboard using [Chart.js](https://github.com/chartjs/Chart.js).
-- Visualizing graphviz model to the system with [Viz.js](https://github.com/mdaines/viz.js).
-- SVG Model Interaction using [SVG.js](https://github.com/svgdotjs).
+- Import .csv and store data to the database
+- Data Mining process using Decision Tree C4.5 Algorithm.
+- Presenting data visualization to the dashboard.
+- Visualizing graphviz model.
+- SVG Model Interaction.
+- Login with roles.
 
 ### Key Technology
 - SASS
-- DBMS PostgresSql
+- DBMS MySQL
 - Vanilla Javascript
 - PHP Laravel
+
+### Library Used
+- [Laravel-Excel](https://github.com/Maatwebsite/Laravel-Excel)
+- [Java Weka](https://www.cs.waikato.ac.nz/ml/weka/) by porting Java to the system.
+- [Chart.js](https://github.com/chartjs/Chart.js)
+- [Viz.js](https://github.com/mdaines/viz.js)
+- [SVG.js](https://github.com/svgdotjs)
+
 
 ## Preview
 ### Dashboard Page
