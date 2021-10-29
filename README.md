@@ -13,10 +13,10 @@ A web-based system that can provide thesis topic recommendations and dashboards 
 - Login with roles.
 
 ### Key Technology
-- SASS
-- DBMS MySQL
-- Vanilla Javascript
 - PHP Laravel
+- DBMS MySQL
+- SASS
+- Vanilla Javascript
 
 ### Library Used
 - [Laravel-Excel](https://github.com/Maatwebsite/Laravel-Excel)
